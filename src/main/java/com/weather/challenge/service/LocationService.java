@@ -1,4 +1,4 @@
-package service;
+package com.weather.challenge.service;
 
 public interface LocationService {
 

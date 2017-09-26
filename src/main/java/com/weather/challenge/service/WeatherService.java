@@ -1,12 +1,13 @@
-package service;
+package com.weather.challenge.service;
 
-import entity.Board;
-import entity.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import repository.BoardRepository;
-import repository.LocationRepository;
+
+import com.weather.challenge.entity.Board;
+import com.weather.challenge.entity.Location;
+import com.weather.challenge.repository.BoardRepository;
+import com.weather.challenge.repository.LocationRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;

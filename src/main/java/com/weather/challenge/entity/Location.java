@@ -1,17 +1,13 @@
-package entity;
+package com.weather.challenge.entity;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.List;
-
-public class Board {
+public class Location {
 
     @Id
     private String id;
 
     private String description;
-
-    List<Location> locations;
 
     public String getId() {
         return id;
@@ -27,13 +23,5 @@ public class Board {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
     }
 }
