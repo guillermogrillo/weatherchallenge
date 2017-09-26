@@ -1,8 +1,7 @@
 package com.weather.challenge.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import com.weather.challenge.entity.Location;
-
-public interface LocationRepository extends CrudRepository<Location,String>{
+@Repository
+public interface LocationRepository /*extends CrudRepository<Location,String>*/{
 }

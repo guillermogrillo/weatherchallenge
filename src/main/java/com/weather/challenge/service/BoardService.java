@@ -1,7 +1,5 @@
 package com.weather.challenge.service;
 
-import java.util.List;
-
 import com.weather.challenge.entity.Board;
 
 public interface BoardService {

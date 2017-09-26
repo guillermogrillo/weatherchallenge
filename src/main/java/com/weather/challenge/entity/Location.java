@@ -1,10 +1,7 @@
 package com.weather.challenge.entity;
 
-import org.springframework.data.annotation.Id;
-
 public class Location {
 
-    @Id
     private String id;
 
     private String description;

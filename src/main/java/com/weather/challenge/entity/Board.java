@@ -1,12 +1,9 @@
 package com.weather.challenge.entity;
 
-import org.springframework.data.annotation.Id;
-
 import java.util.List;
 
 public class Board {
 
-    @Id
     private String id;
 
     private String description;
