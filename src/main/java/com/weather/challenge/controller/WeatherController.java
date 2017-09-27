@@ -2,6 +2,7 @@ package com.weather.challenge.controller;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.LocationDto;
+import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.entity.Location;
 import com.weather.challenge.entity.User;
 import com.weather.challenge.service.UserService;
@@ -32,46 +33,51 @@ public class WeatherController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/user")
+    public void saveUser(UserDto dto) {
+        userService.saveUser(dto);
+    }
+
     @GetMapping("/boards")
     public List<BoardDto> getBoards(@RequestParam final String userId) {
-        logger.info("getBoards request for user %s",userId);
+        logger.info("getBoards request for user " + userId);
         User user = userService.getUser(userId);
         return weatherService.getBoards(user);
     }
 
     @GetMapping("/board/{id}")
     public BoardDto getBoard(@PathVariable String id) {
-        logger.info("getBoard request for id %s",id);
+        logger.info("getBoard request for id" + id);
         return weatherService.getBoard(id);
     }
 
     @PostMapping("/board")
-    public void saveBoard(BoardDto dto) {
-        logger.info("saveBoard %s",dto.getDescription());
-        weatherService.saveBoard(dto);
+    public void saveBoard(BoardDto dto, String userId) {
+        logger.info("saveBoard " + dto.getDescription());
+        weatherService.saveBoard(dto, userId);
     }
 
     @DeleteMapping("/board")
     public void deleteBoard(BoardDto dto) {
-        logger.info("deleteBoard with id: %s",dto.getId());
+        logger.info("deleteBoard with id " + dto.getId());
         weatherService.deleteBoard(dto);
     }
 
     @GetMapping("/board/{boardId}/locations")
     public List<LocationDto> getBoardLocations(@PathVariable String boardId) {
-        logger.info("getBoardLocations for boardId: %s",boardId);
+        logger.info("getBoardLocations for boardId " + boardId);
         return weatherService.getLocations(boardId);
     }
 
     @PostMapping("board/{boardId}/location")
     public void saveLocation(LocationDto dto, @PathVariable String boardId) {
-        logger.info("saveLocation %s in board %s",dto.getDescription(), boardId);
+        logger.info("saveLocation" + dto.getDescription() + " in board " + boardId);
         weatherService.saveLocation(dto,boardId);
     }
 
     @DeleteMapping("board/{boardId}/location")
     public void deleteLocation(LocationDto dto, @PathVariable String boardId) {
-        logger.info("deleteLocation %s in board %s",dto.getDescription(),boardId);
+        logger.info("deleteLocation "+dto.getDescription()+" in board ",boardId);
         weatherService.deleteLocation(dto);
     }
 

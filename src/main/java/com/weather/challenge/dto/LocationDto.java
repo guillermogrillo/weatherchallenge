@@ -6,14 +6,10 @@ public class LocationDto {
 
     private String id;
     private String description;
+    private BoardDto board;
 
-    public LocationDto(String description) {
-        this.description = description;
-    }
+    public LocationDto() {
 
-    public LocationDto(Location location) {
-        this.id = location.getId();
-        this.description = location.getDescription();
     }
 
     public String getId() {
@@ -30,5 +26,13 @@ public class LocationDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BoardDto getBoard() {
+        return board;
+    }
+
+    public void setBoard(BoardDto board) {
+        this.board = board;
     }
 }

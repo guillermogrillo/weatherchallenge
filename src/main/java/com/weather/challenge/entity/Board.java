@@ -12,12 +12,7 @@ public class Board {
     @DBRef
     private User user;
 
-    public Board(String description) {
-        this.description = description;
-    }
-
-    public Board(BoardDto dto) {
-        this.description = dto.getDescription();
+    public Board() {
     }
 
     public String getId() {

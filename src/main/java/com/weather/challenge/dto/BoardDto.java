@@ -6,14 +6,10 @@ public class BoardDto {
 
     private String id;
     private String description;
+    private UserDto user;
 
-    public BoardDto(String description) {
-        this.description = description;
-    }
+    public BoardDto() {
 
-    public BoardDto(Board board) {
-        this.description = board.getDescription();
-        this.id = board.getId();
     }
 
     public String getId() {
@@ -32,4 +28,12 @@ public class BoardDto {
         this.description = description;
     }
 
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
 }

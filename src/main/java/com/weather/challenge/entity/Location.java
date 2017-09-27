@@ -12,13 +12,8 @@ public class Location {
     @DBRef
     private Board board;
 
-    public Location(String description) {
-        this.description = description;
-    }
+    public Location() {
 
-    public Location(LocationDto dto, Board board) {
-        this.description = dto.getDescription();
-        this.board = board;
     }
 
     public String getId() {
