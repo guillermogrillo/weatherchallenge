@@ -1,11 +1,7 @@
 package com.weather.challenge.controller;
 
-import com.weather.challenge.dto.BoardDto;
-import com.weather.challenge.dto.LocationDto;
-import com.weather.challenge.dto.UserDto;
-import com.weather.challenge.entity.Location;
-import com.weather.challenge.entity.User;
-import com.weather.challenge.service.UserService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.weather.challenge.dto.BoardDto;
+import com.weather.challenge.dto.LocationDto;
+import com.weather.challenge.dto.UserDto;
+import com.weather.challenge.entity.User;
+import com.weather.challenge.service.UserService;
 import com.weather.challenge.service.WeatherService;
-
-import java.util.List;
 
 /**
  * 	[GET] 		/{userId}/boards -> Trae todos los boards del usuario cuyo id es {userId}
