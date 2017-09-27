@@ -1,44 +1,57 @@
 package com.weather.challenge.entity;
 
+import org.springframework.data.annotation.Id;
+
+import javax.annotation.Generated;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
 
-	private String id;
-	private String firstName;
-	private String lastName;
-	private List<Board> boards;
+    @Id
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String password;
 
-	public String getId() {
-		return id;
-	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public User(String firstName, String lastName, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public List<Board> getBoards() {
-		return boards;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setBoards(List<Board> boards) {
-		this.boards = boards;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
 }

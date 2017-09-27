@@ -1,9 +1,10 @@
 package com.weather.challenge.repository;
 
-import org.springframework.stereotype.Repository;
+import com.weather.challenge.entity.Board;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-@Repository
-public interface BoardRepository /*extends CrudRepository<Board,String>*/{
-
-
+/**
+ * Created by yoga on 26/09/17.
+ */
+public interface BoardRepository extends MongoRepository<Board,String> {
 }

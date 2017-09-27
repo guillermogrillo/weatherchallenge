@@ -1,10 +1,20 @@
 package com.weather.challenge.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 public class Location {
 
+    @Id
     private String id;
-
     private String description;
+    @DBRef
+    private Board board;
+
+    public Location(String description) {
+        this.description = description;
+    }
+
 
     public String getId() {
         return id;
@@ -20,5 +30,13 @@ public class Location {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 }
