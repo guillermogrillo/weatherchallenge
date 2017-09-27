@@ -1,5 +1,6 @@
 package com.weather.challenge.entity;
 
+import com.weather.challenge.dto.LocationDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
@@ -15,6 +16,10 @@ public class Location {
         this.description = description;
     }
 
+    public Location(LocationDto dto, Board board) {
+        this.description = dto.getDescription();
+        this.board = board;
+    }
 
     public String getId() {
         return id;

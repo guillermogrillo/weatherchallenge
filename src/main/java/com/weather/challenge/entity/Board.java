@@ -1,5 +1,6 @@
 package com.weather.challenge.entity;
 
+import com.weather.challenge.dto.BoardDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
@@ -13,6 +14,10 @@ public class Board {
 
     public Board(String description) {
         this.description = description;
+    }
+
+    public Board(BoardDto dto) {
+        this.description = dto.getDescription();
     }
 
     public String getId() {
