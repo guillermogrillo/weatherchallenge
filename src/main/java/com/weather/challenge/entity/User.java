@@ -1,11 +1,8 @@
 package com.weather.challenge.entity;
 
-import com.weather.challenge.dto.UserDto;
 import org.springframework.data.annotation.Id;
 
-import javax.annotation.Generated;
-import java.util.ArrayList;
-import java.util.List;
+import com.weather.challenge.dto.UserDto;
 
 public class User {
 

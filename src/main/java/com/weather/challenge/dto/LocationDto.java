@@ -1,7 +1,5 @@
 package com.weather.challenge.dto;
 
-import com.weather.challenge.entity.Location;
-
 public class LocationDto {
 
     private String id;

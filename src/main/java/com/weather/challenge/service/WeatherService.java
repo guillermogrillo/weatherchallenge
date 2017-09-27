@@ -1,20 +1,22 @@
 package com.weather.challenge.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.LocationDto;
-import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.entity.Board;
 import com.weather.challenge.entity.Location;
 import com.weather.challenge.entity.User;
+import com.weather.challenge.mapper.BoardMapper;
+import com.weather.challenge.mapper.LocationMapper;
+import com.weather.challenge.mapper.UserMapper;
 import com.weather.challenge.repository.BoardRepository;
 import com.weather.challenge.repository.LocationRepository;
 import com.weather.challenge.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class WeatherService {
@@ -27,6 +29,15 @@ public class WeatherService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private UserMapper userMapper;
+    
+    @Autowired
+    private BoardMapper boardMapper;
+    
+    @Autowired
+    private LocationMapper locationMapper;
 
 
     public List<BoardDto> getBoards(User user) {
@@ -37,7 +48,7 @@ public class WeatherService {
             for (Board board : boards) {
                 boardDto = new BoardDto();
                 boardDto.setDescription(board.getDescription());
-                boardDto.setUser(mapUserToUserDto(board.getUser()));
+                boardDto.setUser(userMapper.entityToDto(board.getUser()));
                 retBoards.add(boardDto);
             }
         }
@@ -48,8 +59,7 @@ public class WeatherService {
         Board board = boardRepository.findOne(id);
         BoardDto boardDto = new BoardDto();
         boardDto.setDescription(board.getDescription());
-        boardDto.setId(board.getId());
-        boardDto.setUser(mapUserToUserDto(board.getUser()));
+        boardDto.setUser(userMapper.entityToDto(board.getUser()));
         return boardDto;
     }
 
@@ -61,8 +71,8 @@ public class WeatherService {
         boardRepository.save(board);
     }
 
-    public void deleteBoard(BoardDto dto) {
-        boardRepository.delete(dto.getId());
+    public void deleteBoard(String id) {
+        boardRepository.delete(id);
     }
 
     public void saveLocation(LocationDto dto, String boardId) {
@@ -81,59 +91,11 @@ public class WeatherService {
         List<Location> locations = locationRepository.getByBoardId(boardId);
         List<LocationDto> retLocations = new ArrayList<LocationDto>();
         if (!locations.isEmpty()) {
-            LocationDto locationDto = null;
             for (Location location : locations) {
-                retLocations.add(mapLocationToLocationDto(location));
+                retLocations.add(locationMapper.entityToDto(location));
             }
         }
         return retLocations;
-    }
-
-    private UserDto mapUserToUserDto(User user) {
-        UserDto dto = new UserDto();
-        dto.setId(user.getId());
-        dto.setUsername(user.getUsername());
-        dto.setPassword(user.getPassword());
-        return dto;
-    }
-
-    private User mapUserDtoToUser(UserDto userDto) {
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
-        return user;
-    }
-
-    private BoardDto mapBoardToBoardDto(Board board) {
-        BoardDto boardDto = new BoardDto();
-        boardDto.setId(board.getId());
-        boardDto.setDescription(board.getDescription());
-        boardDto.setUser(mapUserToUserDto(board.getUser()));
-        return boardDto;
-    }
-
-    private Board mapBoardDtoToBoard(BoardDto boardDto) {
-        Board board = new Board();
-        board.setId(boardDto.getId());
-        board.setDescription(boardDto.getDescription());
-        board.setUser(mapUserDtoToUser(boardDto.getUser()));
-        return board;
-    }
-
-    private LocationDto mapLocationToLocationDto(Location location) {
-        LocationDto locationDto = new LocationDto();
-        locationDto.setId(location.getId());
-        locationDto.setDescription(location.getDescription());
-        locationDto.setBoard(mapBoardToBoardDto(location.getBoard()));
-        return locationDto;
-    }
-
-    private Location mapLocationDtoToLocation(LocationDto locationDto) {
-        Location location = new Location();
-        location.setId(locationDto.getId());
-        location.setDescription(locationDto.getDescription());
-        location.setBoard(mapBoardDtoToBoard(locationDto.getBoard()));
-        return location;
     }
 
 }
