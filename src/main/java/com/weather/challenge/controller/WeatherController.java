@@ -2,6 +2,8 @@ package com.weather.challenge.controller;
 
 import java.util.List;
 
+import com.weather.challenge.dto.external.Weather;
+import com.weather.challenge.service.YahooService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.entity.User;
 import com.weather.challenge.service.UserService;
 import com.weather.challenge.service.WeatherService;
+import springfox.documentation.builders.PathSelectors;
 
 /**
  * 	[GET] 		/{userId}/boards -> Trae todos los boards del usuario cuyo id es {userId}
@@ -42,6 +45,9 @@ public class WeatherController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private YahooService yahooService;
 
     @PostMapping("/user")
     public void saveUser(UserDto dto) {
@@ -98,6 +104,17 @@ public class WeatherController {
         logger.info("deleteLocation "+dto.getDescription()+" in board ",boardId);
         weatherService.deleteLocation(dto);
     }
+
+    /**
+     * Yahoo Service
+     */
+
+    @GetMapping("/getWeather/{woeid}")
+    public Weather getWeatherByWoeid(@PathVariable  String woeid) {
+        Weather weather = yahooService.findWeatherByWoeid(Integer.valueOf(woeid));
+        return weather;
+    }
+
 
 
 }
