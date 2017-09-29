@@ -23,6 +23,7 @@ import com.weather.challenge.dto.UserLoginDto;
 import com.weather.challenge.dto.external.Place;
 import com.weather.challenge.dto.external.Weather;
 import com.weather.challenge.exception.ExistingUserException;
+import com.weather.challenge.exception.InvalidPasswordException;
 import com.weather.challenge.exception.UnexistingUserException;
 import com.weather.challenge.service.UserService;
 import com.weather.challenge.service.WeatherService;
@@ -47,20 +48,20 @@ public class WeatherController extends GenericController {
 
 	@Autowired
 	private PlaceHelper placeHelper;
-
+	
 	// @Autowired
 	// private SimpMessagingTemplate brokerMessagingTemplate;
 
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody UserLoginDto dto) throws ExistingUserException {
-		userService.saveUser(dto);
+		userService.register(dto);
 		String response = createResponse(WeatherServiceCode.OK);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody UserLoginDto dto) throws UnexistingUserException {
-		UserDto userDto = userService.getUserByUsernameAndPassword(dto.getUsername(),dto.getPassword());
+	public ResponseEntity<String> login(@RequestBody UserLoginDto dto) throws UnexistingUserException, InvalidPasswordException {
+		UserDto userDto = userService.getUserByUsernameAndPassword(dto);
 		String response = createResponse(WeatherServiceCode.OK, userDto);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
@@ -150,6 +151,14 @@ public class WeatherController extends GenericController {
 		String response = createResponse(WeatherServiceCode.UNEXISTING_USER);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
+	
+	@ExceptionHandler(InvalidPasswordException.class)
+	public ResponseEntity<String> exceptionHandlerInvalidPassword(Exception e) {
+		logger.error(e.getMessage());
+		String response = createResponse(WeatherServiceCode.INVALID_PASSWORD);
+		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+	
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> exceptionHandlerGeneric(Exception e) {

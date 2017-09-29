@@ -6,7 +6,8 @@ public enum WeatherServiceCode {
 	JSON_INVALIDO(1, "Error creating Json response"), 
 	SERVER_ERROR(2, "Unable to process the request"), 
 	EXISTING_USER(3, "The user already exists"), 
-	UNEXISTING_USER(4, "The user does not exist");
+	UNEXISTING_USER(4, "The user does not exist"), 
+	INVALID_PASSWORD(5,"The password in invalid");
 
 	private final int result;
 	private final String description;
