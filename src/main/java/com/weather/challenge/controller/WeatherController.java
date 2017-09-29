@@ -111,7 +111,7 @@ public class WeatherController {
 
     @GetMapping("/getWeather/{woeid}")
     public Weather getWeatherByWoeid(@PathVariable  String woeid) {
-        Weather weather = yahooService.findWeatherByWoeid(Integer.valueOf(woeid));
+        Weather weather = yahooService.findWeatherByWoeid(new String(woeid));
         return weather;
     }
 

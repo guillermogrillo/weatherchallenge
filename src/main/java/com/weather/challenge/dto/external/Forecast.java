@@ -1,45 +1,45 @@
 package com.weather.challenge.dto.external;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import java.util.Date;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Forecast {
 
-    @XmlAttribute
-    private int low;
-
-    @XmlAttribute
-    private int high;
-
-    @XmlAttribute
+    private Date date;
+    private Integer low;
+    private Integer high;
     private String text;
 
-    @XmlAttribute
-    private String date;
+    public Forecast(Date date, Integer low, Integer high, String text) {
+        this.date = date;
+        this.low = low;
+        this.high = high;
+        this.text = text;
+    }
 
-    public String getDate() {
+    public Forecast() {
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getLow() {
+    public Integer getLow() {
         return low;
     }
 
-    public void setLow(int low) {
+    public void setLow(Integer low) {
         this.low = low;
     }
 
-    public int getHigh() {
+    public Integer getHigh() {
         return high;
     }
 
-    public void setHigh(int high) {
+    public void setHigh(Integer high) {
         this.high = high;
     }
 
@@ -50,5 +50,4 @@ public class Forecast {
     public void setText(String text) {
         this.text = text;
     }
-
 }
