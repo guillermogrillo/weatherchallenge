@@ -61,7 +61,7 @@ public class WeatherController extends GenericController {
 
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody UserLoginDto dto) throws UnexistingUserException, InvalidPasswordException {
-		UserDto userDto = userService.getUserByUsernameAndPassword(dto);
+		UserDto userDto = userService.login(dto);
 		String response = createResponse(WeatherServiceCode.OK, userDto);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}

@@ -36,7 +36,7 @@ public class UserService {
 		return dto;
 	}
 	
-	public UserDto getUserByUsernameAndPassword(UserLoginDto dto) throws UnexistingUserException, InvalidPasswordException {
+	public UserDto login(UserLoginDto dto) throws UnexistingUserException, InvalidPasswordException {
 		User user = userRepository.findByUsername(dto.getUsername());
 		if(user == null){
 			throw new UnexistingUserException("The user does not exist!");
