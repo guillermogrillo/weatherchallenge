@@ -2,11 +2,13 @@ package com.weather.challenge.dto.external;
 
 public class Place {
 
+	private String woeid;
     private String name;
     private String countryShortName;
     private String code;
 
-    public Place(String name, String countryShortName, String code) {
+    public Place(String woeid, String name, String countryShortName, String code) {
+    	this.woeid = woeid;
         this.name = name;
         this.countryShortName = countryShortName;
         this.code = code;
@@ -39,4 +41,12 @@ public class Place {
     public void setCode(String code) {
         this.code = code;
     }
+
+	public String getWoeid() {
+		return woeid;
+	}
+
+	public void setWoeid(String woeid) {
+		this.woeid = woeid;
+	}
 }

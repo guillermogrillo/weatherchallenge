@@ -9,6 +9,7 @@ import com.weather.challenge.util.PlaceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -120,9 +121,14 @@ public class WeatherController {
         return weather;
     }
 
-    @GetMapping("/getLocation/{location}")
-    public Place getLocation(@PathVariable String location) {
-        return placeHelper.findByName(location);
+    @GetMapping("/getLocationByName/{location}")
+    public List<Place> getLocationsByName(@PathVariable String location) {
+        return placeHelper.getPlacesByName(location);
+    }
+    
+    @GetMapping("/getLocationByWoeid/{woeid}")
+    public Place getLocationByWoeid(@PathVariable String woeid) {
+        return placeHelper.getPlaceByWoeid(woeid);
     }
 
 
