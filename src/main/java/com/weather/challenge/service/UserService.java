@@ -1,5 +1,9 @@
 package com.weather.challenge.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.dto.UserLoginDto;
 import com.weather.challenge.entity.User;
@@ -7,10 +11,6 @@ import com.weather.challenge.exception.ExistingUserException;
 import com.weather.challenge.exception.InvalidPasswordException;
 import com.weather.challenge.exception.UnexistingUserException;
 import com.weather.challenge.repository.UserRepository;
-import com.weather.challenge.security.SecurityService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -19,7 +19,7 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Autowired
-	private SecurityService securityService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public UserDto getUser(String id) {
 		User user = userRepository.findOne(id);
@@ -37,13 +37,9 @@ public class UserService {
 	}
 	
 	public UserDto login(UserLoginDto dto) throws UnexistingUserException, InvalidPasswordException {
-		User user = userRepository.findByUsername(dto.getUsername());
+		User user = userRepository.findByUsernameAndPassword(dto.getUsername(),bCryptPasswordEncoder.encode(dto.getPassword()));
 		if(user == null){
-			throw new UnexistingUserException("The user does not exist!");
-		}else{
-			if(!securityService.checkPassword(dto.getPassword(), user.getPassword())){
-				throw new InvalidPasswordException("The password does not match!");
-			}
+			throw new UnexistingUserException("The user does not exist!");		
 		}
 		return new UserDto(user.getId(), user.getUsername());
 	}
@@ -53,7 +49,7 @@ public class UserService {
 		if (userRepository.findByUsername(dto.getUsername()) != null) {
 			throw new ExistingUserException("The user already exists!");
 		} else {
-			User user = new User(dto.getUsername(), securityService.hashPassword(dto.getPassword()));
+			User user = new User(dto.getUsername(), bCryptPasswordEncoder.encode(dto.getPassword()));
 			userRepository.save(user);
 		}
 	}

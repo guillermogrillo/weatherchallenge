@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.NewBoardDto;
+import com.weather.challenge.dto.UserDataDto;
 import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.dto.UserLoginDto;
 import com.weather.challenge.dto.external.Place;
@@ -49,8 +52,8 @@ public class WeatherController extends GenericController {
 	@Autowired
 	private PlaceHelper placeHelper;
 	
-	// @Autowired
-	// private SimpMessagingTemplate brokerMessagingTemplate;
+	 @Autowired
+	 private SimpMessagingTemplate brokerMessagingTemplate;
 
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody UserLoginDto dto) throws ExistingUserException {
@@ -132,11 +135,15 @@ public class WeatherController extends GenericController {
 	 * Servicio para pollear data
 	 */
 
-	// @Scheduled(fixedRate = 600000)
-	// public void getWeatherNews(String userId) throws Exception {
-	// UserDataDto userData = weatherService.getWeatherNews(userId);
-	// brokerMessagingTemplate.convertAndSend("/topic/weather", userData);
-	// }
+//	@Scheduled(fixedRate = 60000)
+//	public void getWeatherNews(String userId) throws Exception {
+//		UserDataDto userData = weatherService.getWeatherNews(userId);
+//		brokerMessagingTemplate.convertAndSend("/topic/weather", userData);
+//	}
+	
+	/**
+	 * Manejo de excepciones
+	 */
 
 	@ExceptionHandler(ExistingUserException.class)
 	public ResponseEntity<String> exceptionHandlerExistingUser(Exception e) {
