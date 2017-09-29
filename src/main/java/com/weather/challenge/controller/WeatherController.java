@@ -2,14 +2,11 @@ package com.weather.challenge.controller;
 
 import java.util.List;
 
-import com.weather.challenge.dto.external.Place;
-import com.weather.challenge.dto.external.Weather;
-import com.weather.challenge.service.YahooService;
-import com.weather.challenge.util.PlaceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,25 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.weather.challenge.dto.BoardDto;
-import com.weather.challenge.dto.LocationDto;
 import com.weather.challenge.dto.NewBoardDto;
+import com.weather.challenge.dto.UserDataDto;
 import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.dto.UserLoginDto;
-import com.weather.challenge.entity.User;
+import com.weather.challenge.dto.external.Place;
+import com.weather.challenge.dto.external.Weather;
 import com.weather.challenge.service.UserService;
 import com.weather.challenge.service.WeatherService;
-import springfox.documentation.builders.PathSelectors;
-
-/**
- * 	[GET] 		/{userId}/boards -> Trae todos los boards del usuario cuyo id es {userId}
-	[GET] 		/{userId}/boards/{boardId} -> Trae el detalle del board cuyo id es {boardId}
-	[POST]		/{userId}/boards/ -> Agrega el nuevo board en base al dto que llega
-	[DELETE]	/{userId}/boards/{boardId} -> Borra el board cuyo id es {boardId}
-	[GET]		/{userId}/boards/{boardId}/locations/ -> Trae las locaciones del board cuyo id es {boardId}
-	[POST]		/{userId}/boards/{boardId}/locations/ -> Agrega la locacion en base al dto que llega
-	[DELETE]	/{userId}/boards/{boardId}/locations/{locationId} -> Borra la locacion cuyo id es {locationId} 
- *
- */
+import com.weather.challenge.service.YahooService;
+import com.weather.challenge.util.PlaceHelper;
 
 @RestController
 @RequestMapping("/api")
@@ -56,6 +44,10 @@ public class WeatherController {
 
     @Autowired
     private PlaceHelper placeHelper;
+    
+    @Autowired
+	private SimpMessagingTemplate brokerMessagingTemplate;
+	
 
     @PostMapping("/register")
     public void saveUser(UserLoginDto dto) {
@@ -115,7 +107,16 @@ public class WeatherController {
     public Place getLocationByWoeid(@PathVariable String woeid) {
         return placeHelper.getPlaceByWoeid(woeid);
     }
+    
+    /**
+     * Servicio para pollear data
+     */
 
+    @Scheduled(fixedRate=600000)
+    public void getWeatherNews(String userId) throws Exception {
+		UserDataDto userData = weatherService.getWeatherNews(userId);
+		brokerMessagingTemplate.convertAndSend("/topic/weather", userData);
+    }
 
 
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface BoardRepository extends MongoRepository<Board,String> {
 
     List<Board> getByUserId(String id);
+
 }

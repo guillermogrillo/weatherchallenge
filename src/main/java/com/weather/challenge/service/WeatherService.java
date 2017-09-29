@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.NewBoardDto;
+import com.weather.challenge.dto.UserDataDto;
 import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.dto.external.Place;
+import com.weather.challenge.dto.external.Weather;
 import com.weather.challenge.entity.Board;
 import com.weather.challenge.entity.User;
 import com.weather.challenge.repository.BoardRepository;
@@ -68,5 +70,20 @@ public class WeatherService {
     public void deleteBoard(String id) {
         boardRepository.delete(id);
     }
+
+	public UserDataDto getWeatherNews(String userId) {
+		User user = userRepository.findOne(userId);
+		UserDto userDto = new UserDto(user.getId(), user.getUsername());
+		List<Board> userBoards = boardRepository.getByUserId(userId);
+		List<BoardDto> boards = new ArrayList<>();
+		List<Weather> weathers = new ArrayList<>();
+		for (Board board : userBoards) {
+			for (String woeid: board.getWoeids()) {
+				weathers.add(yahooService.findWeatherByWoeid(woeid));
+			}
+			boards.add(new BoardDto(board.getDescription(), weathers));
+		}
+		return new UserDataDto(userDto, boards);
+	}
 
 }
