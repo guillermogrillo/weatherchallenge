@@ -2,8 +2,10 @@ package com.weather.challenge.controller;
 
 import java.util.List;
 
+import com.weather.challenge.dto.external.Place;
 import com.weather.challenge.dto.external.Weather;
 import com.weather.challenge.service.YahooService;
+import com.weather.challenge.util.PlaceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,9 @@ public class WeatherController {
 
     @Autowired
     private YahooService yahooService;
+
+    @Autowired
+    private PlaceHelper placeHelper;
 
     @PostMapping("/user")
     public void saveUser(UserDto dto) {
@@ -113,6 +118,11 @@ public class WeatherController {
     public Weather getWeatherByWoeid(@PathVariable  String woeid) {
         Weather weather = yahooService.findWeatherByWoeid(new String(woeid));
         return weather;
+    }
+
+    @GetMapping("/getLocation/{location}")
+    public Place getLocation(@PathVariable String location) {
+        return placeHelper.findByName(location);
     }
 
 

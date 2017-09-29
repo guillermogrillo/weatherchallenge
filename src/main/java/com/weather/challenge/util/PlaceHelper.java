@@ -9,6 +9,8 @@ import java.util.Map;
 @Component
 public class PlaceHelper {
 
+    //TODO Agregar woeid a Place y hacer todo una lista.
+
     public Map<String, Place> completeAllPlaces() {
         Map<String, Place> woeidMap = new HashMap<String, Place>();
         woeidMap.put("2347008", new Place(
