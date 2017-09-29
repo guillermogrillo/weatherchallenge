@@ -1,7 +1,8 @@
 package com.weather.challenge.dto;
 
-public class UserLoginDto extends UserDto {
+public class UserLoginDto {
 
+	private String username;
 	private String password;
 
 	public UserLoginDto() {
@@ -9,7 +10,7 @@ public class UserLoginDto extends UserDto {
 	}
 
 	public UserLoginDto(String username, String password) {
-		super(username);
+		this.setUsername(username);
 		this.setPassword(password);
 	}
 
@@ -19,6 +20,14 @@ public class UserLoginDto extends UserDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

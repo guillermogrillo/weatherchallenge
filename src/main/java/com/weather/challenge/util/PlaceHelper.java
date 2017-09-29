@@ -54,7 +54,6 @@ public class PlaceHelper {
 		places.add(new Place("2347679", "Apure", "VEN", "VE03"));
 		places.add(new Place("2347690", "Mérida", "VEN", "VE14"));
 		places.add(new Place("2347697", "Trujillo", "VEN", "VE21"));
-		places.add(new Place("2347697", "Trujillo", "VEN", "VE23"));
 		places.add(new Place("2347699", "Zulia", "VEN", "VE23"));
 		places.add(new Place("2347684", "Cojedes", "VEN", "VE08"));
 		places.add(new Place("2347683", "Carabobo", "VEN", "VE07"));

@@ -63,7 +63,7 @@ public class WeatherController {
     }
     
     @PostMapping("/login")
-    public UserLoginDto getUser(UserLoginDto dto) {
+    public UserDto getUser(UserLoginDto dto) {
         return userService.getUserByUsername(dto.getUsername());
     }
     

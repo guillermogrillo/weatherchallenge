@@ -19,9 +19,9 @@ public class UserService {
 		return dto;
 	}
 
-	public UserLoginDto getUserByUsername(String username) {
+	public UserDto getUserByUsername(String username) {
 		User user = userRepository.findByUsername(username);
-		UserLoginDto dto = new UserLoginDto(user.getUsername(), user.getPassword());
+		UserDto dto = new UserDto(user.getId(), user.getUsername());
 		return dto;
 	}
 

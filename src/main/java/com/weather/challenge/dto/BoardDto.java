@@ -1,5 +1,6 @@
 package com.weather.challenge.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.weather.challenge.dto.external.Weather;
@@ -12,11 +13,11 @@ public class BoardDto {
     public BoardDto(String description, List<Weather> weathers) {
 		super();
 		this.description = description;
-		this.weathers = weathers;
+		this.weathers = new ArrayList<>();
 	}
 
 	public BoardDto() {
-
+		this.weathers = new ArrayList<>();
     }
 
     public String getDescription() {
