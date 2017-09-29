@@ -27,7 +27,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-		
+
+
+		http.authorizeRequests().antMatchers("/v2/api-docs").permitAll();
+
 		http.authorizeRequests()
 			.antMatchers("/", "/home")
 				.permitAll()
