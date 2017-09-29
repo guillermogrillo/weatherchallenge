@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.LocationDto;
+import com.weather.challenge.dto.NewBoardDto;
+import com.weather.challenge.dto.UserDto;
+import com.weather.challenge.dto.external.Place;
 import com.weather.challenge.entity.Board;
 import com.weather.challenge.entity.Location;
 import com.weather.challenge.entity.User;
-import com.weather.challenge.mapper.BoardMapper;
 import com.weather.challenge.mapper.LocationMapper;
-import com.weather.challenge.mapper.UserMapper;
 import com.weather.challenge.repository.BoardRepository;
 import com.weather.challenge.repository.LocationRepository;
 import com.weather.challenge.repository.UserRepository;
@@ -23,6 +24,9 @@ public class WeatherService {
 
     @Autowired
     private BoardRepository boardRepository;
+    
+    @Autowired
+    private YahooService yahooService;
 
     @Autowired
     private LocationRepository locationRepository;
@@ -31,16 +35,9 @@ public class WeatherService {
     private UserRepository userRepository;
     
     @Autowired
-    private UserMapper userMapper;
-    
-    @Autowired
-    private BoardMapper boardMapper;
-    
-    @Autowired
     private LocationMapper locationMapper;
 
-
-    public List<BoardDto> getBoards(User user) {
+    public List<BoardDto> getBoards(UserDto user) {
         List<Board> boards = boardRepository.getByUserId(user.getId());
         List<BoardDto> retBoards = new ArrayList<BoardDto>();
         if (!boards.isEmpty()) {
@@ -48,7 +45,9 @@ public class WeatherService {
             for (Board board : boards) {
                 boardDto = new BoardDto();
                 boardDto.setDescription(board.getDescription());
-                boardDto.setUser(userMapper.entityToDto(board.getUser()));
+                for (String woeid : board.getWoeids()) {
+					boardDto.getWeathers().add(yahooService.findWeatherByWoeid(woeid));
+				}
                 retBoards.add(boardDto);
             }
         }
@@ -59,15 +58,20 @@ public class WeatherService {
         Board board = boardRepository.findOne(id);
         BoardDto boardDto = new BoardDto();
         boardDto.setDescription(board.getDescription());
-        boardDto.setUser(userMapper.entityToDto(board.getUser()));
+        for (String woeid : board.getWoeids()) {
+			boardDto.getWeathers().add(yahooService.findWeatherByWoeid(woeid));
+		}
         return boardDto;
     }
 
-    public void saveBoard(BoardDto dto, String userId) {
+    public void saveBoard(NewBoardDto dto, String userId) {
         Board board = new Board();
         User user = userRepository.findOne(userId);
-        board.setDescription(dto.getDescription());
         board.setUser(user);
+        board.setDescription(dto.getDescription());
+        for (Place place : dto.getPlaces()) {
+			board.getWoeids().add(place.getWoeid());
+		}
         boardRepository.save(board);
     }
 

@@ -1,6 +1,7 @@
 package com.weather.challenge.service;
 
 import com.weather.challenge.dto.UserDto;
+import com.weather.challenge.dto.UserLoginDto;
 import com.weather.challenge.entity.User;
 import com.weather.challenge.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    public User getUser(String id){
-        User user = userRepository.findOne(id);
-        return user;
-    }
+	public UserDto getUser(String id) {
+		User user = userRepository.findOne(id);
+		UserDto dto = new UserDto(user.getId(), user.getUsername());
+		return dto;
+	}
 
-    public void saveUser(UserDto dto) {
-        User user = new User(dto);
-        userRepository.save(user);
-    }
+	public UserLoginDto getUserByUsername(String username) {
+		User user = userRepository.findByUsername(username);
+		UserLoginDto dto = new UserLoginDto(user.getUsername(), user.getPassword());
+		return dto;
+	}
 
+	public void saveUser(UserLoginDto dto) {
+		User user = new User(dto.getUsername(), dto.getPassword());
+		userRepository.save(user);
+	}
 
 }

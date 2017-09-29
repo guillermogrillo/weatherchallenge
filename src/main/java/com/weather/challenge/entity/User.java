@@ -2,8 +2,6 @@ package com.weather.challenge.entity;
 
 import org.springframework.data.annotation.Id;
 
-import com.weather.challenge.dto.UserDto;
-
 public class User {
 
     @Id
@@ -12,9 +10,9 @@ public class User {
     private String password;
 
 
-    public User(UserDto dto) {
-        this.username = dto.getUsername();
-        this.password = dto.getPassword();
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
     public User(){
 

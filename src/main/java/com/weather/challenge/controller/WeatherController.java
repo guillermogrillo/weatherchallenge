@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.LocationDto;
+import com.weather.challenge.dto.NewBoardDto;
 import com.weather.challenge.dto.UserDto;
+import com.weather.challenge.dto.UserLoginDto;
 import com.weather.challenge.entity.User;
 import com.weather.challenge.service.UserService;
 import com.weather.challenge.service.WeatherService;
@@ -55,9 +57,14 @@ public class WeatherController {
     @Autowired
     private PlaceHelper placeHelper;
 
-    @PostMapping("/user")
-    public void saveUser(UserDto dto) {
+    @PostMapping("/register")
+    public void saveUser(UserLoginDto dto) {
         userService.saveUser(dto);
+    }
+    
+    @PostMapping("/login")
+    public UserLoginDto getUser(UserLoginDto dto) {
+        return userService.getUserByUsername(dto.getUsername());
     }
     
     /*
@@ -67,7 +74,7 @@ public class WeatherController {
     @GetMapping("/{userId}/boards")
     public List<BoardDto> getBoards(@PathVariable final String userId) {
         logger.info("getBoards request for user " + userId);
-        User user = userService.getUser(userId);
+        UserDto user = userService.getUser(userId);
         return weatherService.getBoards(user);
     }
 
@@ -78,7 +85,7 @@ public class WeatherController {
     }
 
     @PostMapping("/{userId}/boards")
-    public void saveBoard(@RequestBody BoardDto dto, @PathVariable String userId) {
+    public void saveBoard(@RequestBody NewBoardDto dto, @PathVariable String userId) {
         logger.info("saveBoard " + dto.getDescription());
         weatherService.saveBoard(dto, userId);
     }
@@ -89,28 +96,6 @@ public class WeatherController {
         weatherService.deleteBoard(boardId);
     }
     
-    /*
-     * Locations
-     */
-
-    @GetMapping("{userId}/boards/{boardId}/locations")
-    public List<LocationDto> getBoardLocations(@PathVariable String userId, @PathVariable String boardId) {
-        logger.info("getBoardLocations for boardId " + boardId);
-        return weatherService.getLocations(boardId);
-    }
-
-    @PostMapping("{userId}/boards/{boardId}/locations")
-    public void saveLocation(@RequestBody LocationDto dto, @PathVariable String userId, @PathVariable String boardId) {
-        logger.info("saveLocation" + dto.getDescription() + " in board " + boardId);
-        weatherService.saveLocation(dto,boardId);
-    }
-
-    @DeleteMapping("{userId}/boards/{boardId}/locations")
-    public void deleteLocation(@RequestBody LocationDto dto, @PathVariable String userId, @PathVariable String boardId) {
-        logger.info("deleteLocation "+dto.getDescription()+" in board ",boardId);
-        weatherService.deleteLocation(dto);
-    }
-
     /**
      * Yahoo Service
      */

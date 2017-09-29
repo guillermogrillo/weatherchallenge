@@ -1,11 +1,21 @@
 package com.weather.challenge.dto;
 
+import java.util.List;
+
+import com.weather.challenge.dto.external.Weather;
+
 public class BoardDto {
 
     private String description;
-    private UserDto user;
+    private List<Weather> weathers;
+    
+    public BoardDto(String description, List<Weather> weathers) {
+		super();
+		this.description = description;
+		this.weathers = weathers;
+	}
 
-    public BoardDto() {
+	public BoardDto() {
 
     }
 
@@ -17,11 +27,12 @@ public class BoardDto {
         this.description = description;
     }
 
-	public UserDto getUser() {
-		return user;
+	public List<Weather> getWeathers() {
+		return weathers;
 	}
 
-	public void setUser(UserDto user) {
-		this.user = user;
+	public void setWeathers(List<Weather> weathers) {
+		this.weathers = weathers;
 	}
+
 }
