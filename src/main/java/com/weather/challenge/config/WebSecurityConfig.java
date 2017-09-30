@@ -41,12 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/fonts/**").permitAll();
 		
-		
 		http.authorizeRequests()
+			.antMatchers("/registration").permitAll()
+			.antMatchers("/landing").permitAll()
 			.antMatchers("/", "/home")
 				.permitAll()
 				.anyRequest()
-				.authenticated()
+				.authenticated()	
 			.and()
 				.formLogin()
 				.loginPage("/login")
@@ -54,11 +55,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 				.logout()
 				.permitAll();
+			
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 }
