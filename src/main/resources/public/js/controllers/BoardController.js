@@ -13,11 +13,9 @@ weatherApp.controller('BoardController', ['$scope', '$http', '$timeout', '$locat
     }
 
     main.getBoards = function() {
-    	$http.get('/api/'+ localStorage.getItem('userId') +'/boards/').success(function(result) {
-    		console.log('get boards ok');
+    	$http.get('/api/'+ localStorage.getItem('userId') +'/boards/').success(function(result) {    		
             $scope.userBoards = result.data;            
-        }).error(function (data, status) {
-        	console.log('error getting board');
+        }).error(function (data, status) {        	
             $scope.userBoards = [];
         });
     }
@@ -31,14 +29,18 @@ weatherApp.controller('BoardController', ['$scope', '$http', '$timeout', '$locat
 
         $http.post('api/'+ localStorage.getItem('userId') +'/boards', boardData).success(function(response) {
             if(response.result === 0) {
-                console.log('The board has been created');
+     			$location.path("/boards");           
             }
             else {
-                console.log('Error creating board');
+                
             }
         }).error(function (response, status) {
-            console.log('Error creating board');
+            
         });
+    }
+
+    main.addLocation = function() {
+    	$location.path("/boards/newboard");
     } 
 
     main.init();
