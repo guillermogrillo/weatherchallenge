@@ -22,13 +22,37 @@
         </div>
     </nav> 
 	
-	<button class="btn btn-success btn-lg" ng-click="main.addNewBoard()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Board</button>
-    <div class="panel panel-success" ng-repeat="b in boards">
-        <div class="list-group">
-          <a ng-click="main.getBoard(b)" class="list-group-item">{{b.description}}</a>
+	<button class="btn btn-success btn-lg" ng-click="main.addNewBoard()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Board</button>    
+    <div class="panel-group" id="accordion">                            
+        <div class="panel panel-default">
+            <div ng-repeat="b in boards">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"><span class="glyphicon glyphicon-th-list">
+                        </span>{{b.description}}</a>
+                    </h4>
+                </div>
+                <div id="{{b.id}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div ng-repeat="w in b.weathers">                    
+                            <div class="row">
+                                <p>{{w.condition.date}} - {{w.condition.description}} - {{w.condition.temp}}</p>
+                            </div>
+                            <div class="row">
+                                <p>{{w.atmosphere.humidity}} - {{w.atmosphere.visibility}} - {{w.atmosphere.pressure}} - {{w.atmosphere.rising}}</p>
+                            </div>                        
+                            <div class="row">
+                                <p>{{w.wind.direction}} - {{w.wind.speed}}</p>
+                            </div>
+                            <div class="row">
+                                <div ng-repeat="f in w.forecasts">
+                                    <p>{{f.date}} - {{f.low}} - {{f.high}} - {{f.text}}</p>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>    
+            </div>
         </div>
     </div>
-
-
-
 </div>
