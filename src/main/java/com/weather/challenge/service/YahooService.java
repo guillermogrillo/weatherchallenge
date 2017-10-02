@@ -6,7 +6,10 @@ import com.github.fedy2.weather.data.unit.DegreeUnit;
 import com.weather.challenge.dto.external.Atmosphere;
 import com.weather.challenge.dto.external.Condition;
 import com.weather.challenge.dto.external.Forecast;
+import com.weather.challenge.dto.external.Place;
 import com.weather.challenge.dto.external.Wind;
+import com.weather.challenge.util.PlaceHelper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class YahooService {
     Logger logger = LoggerFactory.getLogger(YahooService.class);
 
     private YahooWeatherService yahooWeatherService;
+    
+    @Autowired
+    private PlaceHelper placeHelper;
 
     public YahooService() throws Exception{
         yahooWeatherService = new YahooWeatherService();
@@ -32,13 +38,14 @@ public class YahooService {
         Weather weather = null;
         try {
             Channel channel = yahooWeatherService.getForecast(woeid, DegreeUnit.CELSIUS);
+            Place placeByWoeid = placeHelper.getPlaceByWoeid(woeid);
             weather = new Weather();
             weather.setWind(new Wind(channel.getWind().getChill(), channel.getWind().getDirection(), channel.getWind().getSpeed()));
             weather.setAtmosphere(new Atmosphere(channel.getAtmosphere().getHumidity(),
                     channel.getAtmosphere().getVisibility(),
                     channel.getAtmosphere().getPressure(),
                     Atmosphere.PressureState.valueOf(channel.getAtmosphere().getRising().name())));
-            weather.setDescription(channel.getDescription());
+            weather.setDescription(placeByWoeid.getName() + "," + placeByWoeid.getCountryShortName());
             weather.setCondition(new Condition(channel.getItem().getCondition().getText(),
                     channel.getItem().getCondition().getTemp(),
                     channel.getItem().getCondition().getDate()));

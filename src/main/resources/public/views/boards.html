@@ -28,13 +28,15 @@
             <div ng-repeat="b in boards">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"><span class="glyphicon glyphicon-th-list">
-                        </span>{{b.description}}</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}">{{b.description}}<span class=" glyphicon glyphicon-chevron-down"></span></a>
                     </h4>
                 </div>
                 <div id="{{b.id}}" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <div ng-repeat="w in b.weathers">                    
+                        <div ng-repeat="w in b.weathers">
+                            <div class="row">
+                                <p>{{w.description}}</p>
+                            </div>                    
                             <div class="row">
                                 <p>{{w.condition.date}} - {{w.condition.description}} - {{w.condition.temp}}</p>
                             </div>
