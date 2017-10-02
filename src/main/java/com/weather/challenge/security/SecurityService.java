@@ -1,39 +1,28 @@
 package com.weather.challenge.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Component;
 
-@Service
-public class SecurityService{
+@Component
+public class SecurityService {
+	private static int workload = 12;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	public String hashPassword(String password_plaintext) {
+		String salt = BCrypt.gensalt(workload);
+		String hashed_password = BCrypt.hashpw(password_plaintext, salt);
 
-	@Autowired
-	private UserDetailsService userDetailsService;
-
-	public String findLoggedInUsername() {
-		Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-		if (userDetails instanceof UserDetails) {
-			return ((UserDetails) userDetails).getUsername();
-		}
-		return null;
+		return(hashed_password);
 	}
-	
-	public void autologin(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
-        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+	public boolean checkPassword(String password_plaintext, String stored_hash) {
+		boolean password_verified = false;
 
-        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        }
-    }
+		if(null == stored_hash || !stored_hash.startsWith("$2a$"))
+			throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
+
+		password_verified = BCrypt.checkpw(password_plaintext, stored_hash);
+
+		return(password_verified);
+	}
 
 }

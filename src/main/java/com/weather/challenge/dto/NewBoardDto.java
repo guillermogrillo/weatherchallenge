@@ -9,7 +9,7 @@ public class NewBoardDto {
 
 	private String description;
 	private List<Place> places;
-
+	
 	public NewBoardDto(String description, List<Place> places) {
 		super();
 		this.description = description;
@@ -17,6 +17,7 @@ public class NewBoardDto {
 	}
 
 	public NewBoardDto() {
+		this.places = new ArrayList<>();
 	}
 
 	public String getDescription() {
