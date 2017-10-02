@@ -21,16 +21,14 @@
               </ul>
         </div>
     </nav> 
-
-    <div class="panel panel-success" ng-repeat="userBoard in userBoards">
-        <p>{{userBoard.description}}</p>
-        <button type="submit" class="btn btn-success btn-lg" ng-click="main.addLocation()">Add</button>    
+	
+	<button class="btn btn-success btn-lg" ng-click="main.addNewBoard()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Board</button>
+    <div class="panel panel-success" ng-repeat="b in boards">
+        <div class="list-group">
+          <a ng-click="main.getBoard(b)" class="list-group-item">{{b.description}}</a>
+        </div>
     </div>
 
 
-        
 
-
-    
-    
 </div>

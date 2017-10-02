@@ -19,11 +19,12 @@ weatherApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
         })
         .when("/boards",{
         	templateUrl: "views/boards.html",
-        	controller: "BoardController as board"
+        	controller: "BoardController as main"
         })
         .when("/boards/newboard",{
         	templateUrl: "views/newboard.html",
-        	controller: "BoardController as board"
+        	controller: "BoardController as main"
         })
     ;
 }]);
+

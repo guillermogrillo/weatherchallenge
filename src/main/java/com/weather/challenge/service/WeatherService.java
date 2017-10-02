@@ -36,6 +36,7 @@ public class WeatherService {
             BoardDto boardDto = null;
             for (Board board : boards) {
                 boardDto = new BoardDto();
+                boardDto.setId(board.getId());
                 boardDto.setDescription(board.getDescription());
                 for (String woeid : board.getWoeids()) {
 					boardDto.getWeathers().add(yahooService.findWeatherByWoeid(woeid));
@@ -49,6 +50,7 @@ public class WeatherService {
     public BoardDto getBoard(String id) {
         Board board = boardRepository.findOne(id);
         BoardDto boardDto = new BoardDto();
+        boardDto.setId(board.getId());
         boardDto.setDescription(board.getDescription());
         for (String woeid : board.getWoeids()) {
 			boardDto.getWeathers().add(yahooService.findWeatherByWoeid(woeid));
@@ -61,6 +63,10 @@ public class WeatherService {
         User user = userRepository.findOne(userId);
         board.setUser(user);
         board.setDescription(dto.getDescription());
+        List<Place> places = new ArrayList<>();
+        places.add(new Place("2347008", "Bari", "SOM", "SO03"));
+        places.add(new Place("7153299", "Hainaut", "BEL", ""));
+        dto.setPlaces(places);
         for (Place place : dto.getPlaces()) {
 			board.getWoeids().add(place.getWoeid());
 		}
@@ -81,7 +87,7 @@ public class WeatherService {
 			for (String woeid: board.getWoeids()) {
 				weathers.add(yahooService.findWeatherByWoeid(woeid));
 			}
-			boards.add(new BoardDto(board.getDescription(), weathers));
+			boards.add(new BoardDto(board.getId(),board.getDescription(), weathers));
 		}
 		return new UserDataDto(userDto, boards);
 	}

@@ -24,9 +24,6 @@ public class PlaceHelper {
 			}
 		}
 		return placeFound;
-//		Stream<Place> filter = places.stream().filter(p -> p.getWoeid().equals(woeid));
-//		Optional<Place> place = filter.findFirst();
-//		return place.orElse(null);
 	}
 	
 	public List<Place> getPlacesByName(String name) {
@@ -37,9 +34,6 @@ public class PlaceHelper {
 			}
 		}
 		return placesFound;
-//		Stream<Place> filter = places.stream().filter(p -> p.getName().contains(name));
-//		List<Place> places = filter.collect(Collectors.toList());
-//		return places;
 	}
 
 	public PlaceHelper() {
