@@ -2,9 +2,22 @@
 	Para contenido en general
 */
 
+body {
+    font-family: 'Lato';    
+}
+
 .content {
     padding-top: 20%;
     text-align: center;
+}
+
+.forecast {
+    width: 23%;
+    float: left;
+    margin: 1%;
+    border: 1px solid black;
+    text-align: center;
+    border-radius: 5px;
 }
 
 /*

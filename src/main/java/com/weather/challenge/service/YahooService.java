@@ -17,8 +17,14 @@ import org.springframework.stereotype.Service;
 
 import com.weather.challenge.dto.external.Weather;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class YahooService {
@@ -26,6 +32,9 @@ public class YahooService {
     Logger logger = LoggerFactory.getLogger(YahooService.class);
 
     private YahooWeatherService yahooWeatherService;
+    
+    private DateFormat dfOriginal = new SimpleDateFormat("ddMMyyyy", Locale.US);
+    private DateFormat dfParsed = new SimpleDateFormat("EEE d MMM ", Locale.US);
     
     @Autowired
     private PlaceHelper placeHelper;
@@ -51,14 +60,28 @@ public class YahooService {
                     channel.getItem().getCondition().getDate()));
             List<Forecast> forecasts = new ArrayList<Forecast>();
             for (com.github.fedy2.weather.data.Forecast f : channel.getItem().getForecasts()) {
-                forecasts.add(new Forecast(f.getDate(),f.getLow(),f.getHigh(),f.getText()));
+                forecasts.add(new Forecast(parseDate(f.getDate().toString()),f.getLow(),f.getHigh(),f.getText()));
             }
-            weather.setForecasts(forecasts);
+            weather.setForecasts(forecasts.stream().limit(3).collect(Collectors.toList()));
         } catch (Exception e) {
             logger.error("Error consuming YahooWeatherService");
             logger.error(e.getMessage());
         }
         return weather;
     }
+
+	private String parseDate(String date) {
+		SimpleDateFormat formatnow = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH); 
+		SimpleDateFormat formatneeded=new SimpleDateFormat("EEE d MMM",Locale.US);
+		try {
+			Date date1 = formatnow.parse(date);
+			String date2 = formatneeded.format(date1);
+			return date2.toUpperCase();
+		} catch (ParseException e) {
+			logger.error(e.getMessage());
+			return "";
+		}
+		
+	}
 
 }

@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Forecast {
 
-    private Date date;
+    private String date;
     private Integer low;
     private Integer high;
     private String text;
 
-    public Forecast(Date date, Integer low, Integer high, String text) {
+    public Forecast(String date, Integer low, Integer high, String text) {
         this.date = date;
         this.low = low;
         this.high = high;
@@ -19,11 +19,11 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
