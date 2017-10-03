@@ -44,21 +44,23 @@
                                     <p></p>
                                 </div>
                                 <div id="{{$index}}" class="panel-collapse collapse">
-                                    <div class="panel-body container">
+                                    <div class="panel-body container">    
                                         <div class="row">
-                                            <p>{{w.condition.date}} - {{w.condition.description}} - {{w.condition.temp}}</p>
-                                        </div>
-                                        <div class="row">
-                                            <p>{{w.atmosphere.humidity}} - {{w.atmosphere.visibility}} - {{w.atmosphere.pressure}} - {{w.atmosphere.rising}}</p>
-                                        </div>                        
-                                        <div class="row">
-                                            <p>{{w.wind.direction}} - {{w.wind.speed}}</p>
-                                        </div>
-                                        <div class="row">
-                                            <div ng-repeat="f in w.forecasts">
-                                                <p>{{f.date}} - {{f.low}} - {{f.high}} - {{f.text}}</p>
+                                            <div class="forecast">                                            
+                                                {{w.condition.date}} 
+                                                <i class="{{w.condition.description}}"></i> 
+                                                <i class="wi wi-thermometer"></i> {{w.condition.temp}}
+                                                <i class="wi wi-humidity"></i>  {{w.atmosphere.humidity}}                                            
+                                                <i class="wi wi-barometer"></i> {{w.atmosphere.pressure}}        
                                             </div>
-                                        </div>
+                                            <div class="forecast" ng-repeat="f in w.forecasts">
+                                                <td>
+                                                    <div class="row">{{f.date}} <i class="{{f.text}}"></i></div>
+                                                    <div class="row">MIN {{f.low}}</div>
+                                                    <div class="row">MAX {{f.high}}</div>         
+                                                </td>                                                
+                                            </div>                                        
+                                        </div>                                
                                     </div>
                                 </div>                    
                             </div>    

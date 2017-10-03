@@ -1,14 +1,12 @@
 package com.weather.challenge.dto.external;
 
-import java.util.Date;
-
 public class Condition {
 
     private String description;
     private int temp;
-    private Date date;
+    private String date;
 
-    public Condition(String description, int temp, Date date) {
+    public Condition(String description, int temp, String date) {
         this.description = description;
         this.temp = temp;
         this.date = date;
@@ -34,11 +32,11 @@ public class Condition {
         this.temp = temp;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

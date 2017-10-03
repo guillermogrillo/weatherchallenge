@@ -1,22 +1,5 @@
 package com.weather.challenge.service;
 
-import com.github.fedy2.weather.YahooWeatherService;
-import com.github.fedy2.weather.data.Channel;
-import com.github.fedy2.weather.data.unit.DegreeUnit;
-import com.weather.challenge.dto.external.Atmosphere;
-import com.weather.challenge.dto.external.Condition;
-import com.weather.challenge.dto.external.Forecast;
-import com.weather.challenge.dto.external.Place;
-import com.weather.challenge.dto.external.Wind;
-import com.weather.challenge.util.PlaceHelper;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.weather.challenge.dto.external.Weather;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +8,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.fedy2.weather.YahooWeatherService;
+import com.github.fedy2.weather.data.Channel;
+import com.github.fedy2.weather.data.unit.DegreeUnit;
+import com.weather.challenge.dto.external.Atmosphere;
+import com.weather.challenge.dto.external.Condition;
+import com.weather.challenge.dto.external.Forecast;
+import com.weather.challenge.dto.external.Place;
+import com.weather.challenge.dto.external.Weather;
+import com.weather.challenge.dto.external.Wind;
+import com.weather.challenge.util.ConditionHelper;
+import com.weather.challenge.util.PlaceHelper;
 
 @Service
 public class YahooService {
@@ -38,6 +38,8 @@ public class YahooService {
     
     @Autowired
     private PlaceHelper placeHelper;
+    @Autowired
+    private ConditionHelper conditionHelper;
 
     public YahooService() throws Exception{
         yahooWeatherService = new YahooWeatherService();
@@ -55,12 +57,12 @@ public class YahooService {
                     channel.getAtmosphere().getPressure(),
                     Atmosphere.PressureState.valueOf(channel.getAtmosphere().getRising().name())));
             weather.setDescription(placeByWoeid.getName() + "," + placeByWoeid.getCountryShortName());
-            weather.setCondition(new Condition(channel.getItem().getCondition().getText(),
+            weather.setCondition(new Condition(conditionHelper.getSrcImageByCode(channel.getItem().getCondition().getCode()),
                     channel.getItem().getCondition().getTemp(),
-                    channel.getItem().getCondition().getDate()));
+                    parseDate(channel.getItem().getCondition().getDate().toString())));
             List<Forecast> forecasts = new ArrayList<Forecast>();
             for (com.github.fedy2.weather.data.Forecast f : channel.getItem().getForecasts()) {
-                forecasts.add(new Forecast(parseDate(f.getDate().toString()),f.getLow(),f.getHigh(),f.getText()));
+                forecasts.add(new Forecast(parseDate(f.getDate().toString()),f.getLow(),f.getHigh(),conditionHelper.getSrcImageByCode(f.getCode())));
             }
             weather.setForecasts(forecasts.stream().limit(3).collect(Collectors.toList()));
         } catch (Exception e) {

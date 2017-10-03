@@ -1,7 +1,5 @@
 package com.weather.challenge.dto.external;
 
-import java.util.Date;
-
 public class Forecast {
 
     private String date;

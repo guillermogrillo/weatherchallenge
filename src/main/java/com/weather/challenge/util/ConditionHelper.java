@@ -13,56 +13,60 @@ public class ConditionHelper {
     public Map<Integer, String> getCondition() {
         return condition;
     }
+    
+    public String getSrcImageByCode(Integer code){
+    	return condition.get(code);
+    }
 
     public ConditionHelper() {
-        condition.put(0, "tornado");
-        condition.put(1, "tropical storm");
-        condition.put(2, "hurricane");
-        condition.put(3, "severe thunderstorms");
-        condition.put(4, "thunderstorms");
-        condition.put(5, "mixed rain and snow");
-        condition.put(6, "mixed rain and sleet");
-        condition.put(7, "mixed snow and sleet");
-        condition.put(8, "freezing drizzle");
-        condition.put(9, "drizzle");
-        condition.put(10, "freezing rain");
-        condition.put(11, "showers");
-        condition.put(12, "showers");
-        condition.put(13, "snow flurries");
-        condition.put(14, "light snow showers");
-        condition.put(15, "blowing snow");
-        condition.put(16, "snow");
-        condition.put(17, "hail");
-        condition.put(18, "sleet");
-        condition.put(19, "dust");
-        condition.put(20, "foggy");
-        condition.put(21, "haze");
-        condition.put(22, "smoky");
-        condition.put(23, "blustery");
-        condition.put(24, "windy");
-        condition.put(25, "cold");
-        condition.put(26, "cloudy");
-        condition.put(27, "mostly cloudy(night)");
-        condition.put(28, "mostly cloudy(day)");
-        condition.put(29, "partly cloudy(night)");
-        condition.put(30, "partly cloudy(day)");
-        condition.put(31, "clear(night)");
-        condition.put(32, "sunny");
-        condition.put(33, "fair(night)");
-        condition.put(34, "fair(day)");
-        condition.put(35, "mixed rain and hail");
-        condition.put(36, "hot");
-        condition.put(37, "isolated thunderstorms");
-        condition.put(38, "scattered thunderstorms");
-        condition.put(39, "scattered thunderstorms");
-        condition.put(40, "scattered showers");
-        condition.put(41, "heavy snow");
-        condition.put(42, "scattered snow showers");
-        condition.put(43, "heavy snow");
-        condition.put(44, "partly cloudy");
-        condition.put(45, "thundershowers");
-        condition.put(46, "snow showers");
-        condition.put(47, "isolated thundershowers");
+        condition.put(0, "wi wi-tornado");
+        condition.put(1, "wi wi-hurricane");
+        condition.put(2, "wi wi-hurricane");
+        condition.put(3, "wi wi-thunderstorm");
+        condition.put(4, "wi wi-thunderstorm");
+        condition.put(5, "wi wi-day-snow");
+        condition.put(6, "wi wi-night-sleet-storm");
+        condition.put(7, "wi wi-night-sleet-storm");
+        condition.put(8, "wi wi-snowflake-cold");
+        condition.put(9, "wi wi-snowflake-cold");
+        condition.put(10, "wi wi-rain-mix");
+        condition.put(11, "wi wi-showers");
+        condition.put(12, "wi wi-showers");
+        condition.put(13, "wi wi-snow");
+        condition.put(14, "wi wi-snow");
+        condition.put(15, "wi wi-snow");
+        condition.put(16, "wi wi-snow");
+        condition.put(17, "wi wi-hail");
+        condition.put(18, "wi wi-sleet");
+        condition.put(19, "wi wi-dust");
+        condition.put(20, "wi wi-day-fog");
+        condition.put(21, "wi wi-day-haze");
+        condition.put(22, "wi wi-smoke");
+        condition.put(23, "wi wi-windy");
+        condition.put(24, "wi wi-windy");
+        condition.put(25, "wi wi-snowflake-cold");
+        condition.put(26, "wi wi-cloud");
+        condition.put(27, "wi wi-night-cloudy");
+        condition.put(28, "wi-day-cloudy");
+        condition.put(29, "wi wi-night-cloudy");
+        condition.put(30, "wi-day-cloudy");
+        condition.put(31, "wi wi-night-clear");
+        condition.put(32, "wi wi-day-sunny");
+        condition.put(33, "wi wi-night-clear");
+        condition.put(34, "wi wi-day-sunny");
+        condition.put(35, "wi-day-rain-mix");
+        condition.put(36, "wi wi-hot");
+        condition.put(37, "wi wi-thunderstorm");
+        condition.put(38, "wi wi-thunderstorm");
+        condition.put(39, "wi wi-thunderstorm");
+        condition.put(40, "wi wi-showers");
+        condition.put(41, "wi wi-snow");
+        condition.put(42, "wi wi-snow");
+        condition.put(43, "wi wi-snow");
+        condition.put(44, "wi wi-cloud");
+        condition.put(45, "wi wi-storm-showers");
+        condition.put(46, "wi wi-snow");
+        condition.put(47, "wi wi-storm-showers");
     }
 
 
