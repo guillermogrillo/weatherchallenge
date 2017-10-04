@@ -1,4 +1,4 @@
-<!--<div class="container-fluid">
+<div class="container-fluid">
 	<nav class="navbar navbar-default">
 		<div>
 			<div class="navbar-header">
@@ -21,26 +21,20 @@
 			</ul>
 		</div>
 	</nav>
-
-	<div>
-		<div class="container">
-			<form>
-				<div class="form-group">
-					<label>Description</label> 
-					<input type="text"
-						id="description" placeholder="Board description"	
-						ng-model="main.newBoardInfo.description" ng-required="true"/>					
+	<div class="container">
+		<form>
+			<div class="form-group">
+				<label>Description</label> 
+				<input type="text"
+					id="description" placeholder="Board description"	
+					ng-model="main.newBoardInfo.description" ng-required="true"/>					
+			</div>
+			<div>
+				<button type="submit" class="btn btn-success btn-lg" ng-click="main.postBoard()">Add</button>
+				<div id="locations" class="row">
+				     <input type="text" id="location-search" placeholder="Search for locations"> 
 				</div>
-				<div>
-					<button type="submit" class="btn btn-success btn-lg" ng-click="main.postBoard()">Add</button>
-					<div>
-					    <ul ng-repeat="b in board">					    	
-					      	<li>{{b}}</li>
-					    </ul>
-					</div>
-				</div>				
-			</form>
-		</div>
+			</div>				
+		</form>
 	</div>
-</div>-->
-<p>{{boards}}</p>
+</div>

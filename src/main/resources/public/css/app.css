@@ -29,4 +29,18 @@ body {
     border-radius: 3px;
 }
 
+body .weather-icon-size {
+    font-size: 40px;
+}
+
+div .glyphicon {
+    pointer-events: all;
+}
+
+#location {
+    margin-top: 25%;
+}
+
+
+
 

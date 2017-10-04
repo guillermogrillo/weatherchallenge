@@ -23,7 +23,7 @@ weatherApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
         })
         .when("/boards/newboard",{
         	templateUrl: "views/newboard.html",
-        	controller: "BoardController as main"
+        	controller: "NewBoardController as newBoardController"
         })
     ;
 }]);
