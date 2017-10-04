@@ -1,77 +1,59 @@
-<div class="container-fluid">
-    <nav class="navbar navbar-default">
-        <div>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span> <span
-                        class="icon-bar"></span> <span class="icon-bar"></span> <span
-                        class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" ng-click="login.register()">WeatherChallenge</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">                
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{username}}<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a ng-click="main.logout()">Logout</a></li>                    
-                  </ul>
-                </li>
-              </ul>
-        </div>
-    </nav> 	
-    <span class="glyphicon glyphicon-plus" ng-click="main.addNewBoard()" aria-hidden="true"></span>
-    <div class="panel-group" id="accordion">                            
-        <div class="panel panel-default">
-            <div class="boards-panel-heading" ng-repeat="b in boards">
-                <div class="panel-heading">
-                    <h4 class="panel-title">          
-                        <span>{{b.description}}</span>                        
-                        <div class="pull-right">
-                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true">                            
-                        </div>                            
-                    </h4>
-                </div>
-                <div id="{{b.id}}" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="board-panel-heading" ng-repeat="w in b.weathers">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <span class="glyphicon glyphicon-map-marker"/>{{w.description}}<span class=" glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="boards/#{{$index}}"></span>
-                                    <p></p>
-                                </div>
-                                <div id="{{$index}}" class="panel-collapse collapse">
-                                    <div class="panel-body">    
-                                        <div class="row">
-                                            <div class="forecast">                                            
-                                                {{w.condition.date}} 
-                                                <i class="{{w.condition.description}}"></i> 
-                                                <hr/>
-                                                <div class="row">
-                                                    <i class="wi wi-thermometer"></i> {{w.condition.temp}}
-                                                    <i class="wi wi-humidity"></i>  {{w.atmosphere.humidity}}                                            
-                                                </div>
-                                                <div class="row">
-                                                <i class="wi wi-barometer"></i> {{w.atmosphere.pressure}}        
-                                                </div>
-                                            </div>
-                                            <div class="forecast" ng-repeat="f in w.forecasts">
-                                                <td>
-                                                    <div class="row forecast-date">{{f.date}} <i class="{{f.text}} .weather-icon-size"></i></div>
-                                                    <hr/>
-                                                    <div class="row temp temp-min">MIN {{f.low}}</div>
-                                                    <div class="row temp temp-max">MAX {{f.high}}</div>         
-                                                </td>                                                    
-                                            </div>                                        
-                                        </div>                                
-                                    </div>
-                                </div>                    
-                            </div>    
-                        </div>    
+<div class="container">
+    <div class="row container">
+        <button type="button" class="btn btn-success" ng-click="main.addNewBoard()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add board</button>
+    </div>
+    <div class="row container">
+        <div class="panel-group" id="accordion">                            
+            <div class="panel panel-default">
+                <div class="boards-panel-heading" ng-repeat="b in boards">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">          
+                            <span>{{b.description}}</span>                        
+                            <div class="pull-right">
+                                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true">                            
+                            </div>                            
+                        </h4>
                     </div>
-                </div>    
+                    <div id="{{b.id}}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="board-panel-heading" ng-repeat="w in b.weathers">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <span class="glyphicon glyphicon-map-marker"/>{{w.description}}<span class=" glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="boards/#{{$index}}"></span>
+                                        <p></p>
+                                    </div>
+                                    <div id="{{$index}}" class="panel-collapse collapse">
+                                        <div class="panel-body">    
+                                            <div class="row">
+                                                <div class="forecast">                                            
+                                                    {{w.condition.date}} 
+                                                    <i class="{{w.condition.description}}"></i> 
+                                                    <hr/>
+                                                    <div class="row">
+                                                        <i class="wi wi-thermometer"></i> {{w.condition.temp}}
+                                                        <i class="wi wi-humidity"></i>  {{w.atmosphere.humidity}}                                            
+                                                    </div>
+                                                    <div class="row">
+                                                    <i class="wi wi-barometer"></i> {{w.atmosphere.pressure}}        
+                                                    </div>
+                                                </div>
+                                                <div class="forecast" ng-repeat="f in w.forecasts">
+                                                    <td>
+                                                        <div class="row forecast-date">{{f.date}} <i class="{{f.text}} .weather-icon-size"></i></div>
+                                                        <hr/>
+                                                        <div class="row temp temp-min">MIN {{f.low}}</div>
+                                                        <div class="row temp temp-max">MAX {{f.high}}</div>         
+                                                    </td>                                                    
+                                                </div>                                        
+                                            </div>                                
+                                        </div>
+                                    </div>                    
+                                </div>    
+                            </div>    
+                        </div>
+                    </div>    
+                </div>
             </div>
         </div>
     </div>
