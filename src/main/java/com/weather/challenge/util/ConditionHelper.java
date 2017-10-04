@@ -47,14 +47,14 @@ public class ConditionHelper {
         condition.put(25, "wi wi-snowflake-cold");
         condition.put(26, "wi wi-cloud");
         condition.put(27, "wi wi-night-cloudy");
-        condition.put(28, "wi-day-cloudy");
+        condition.put(28, "wi wi-day-cloudy");
         condition.put(29, "wi wi-night-cloudy");
-        condition.put(30, "wi-day-cloudy");
+        condition.put(30, "wi wi-day-cloudy");
         condition.put(31, "wi wi-night-clear");
         condition.put(32, "wi wi-day-sunny");
         condition.put(33, "wi wi-night-clear");
         condition.put(34, "wi wi-day-sunny");
-        condition.put(35, "wi-day-rain-mix");
+        condition.put(35, "wi wi-day-rain-mix");
         condition.put(36, "wi wi-hot");
         condition.put(37, "wi wi-thunderstorm");
         condition.put(38, "wi wi-thunderstorm");
