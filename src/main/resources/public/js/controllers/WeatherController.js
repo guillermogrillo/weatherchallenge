@@ -6,27 +6,16 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
     
     $scope.contentUrl = $route.current.$$route.contentUrl;
     $scope.tab_content = false;
-    $scope.resourceId = $routeParams.param;
-
-    var loggedIn = false;
-    main.user = {};
-    main.invalidInput = false;
+    $scope.resourceId = $routeParams.param;    
     
     main.init = function(resource) {
     	switch(resource) {
             case 'landing':
                 $scope.tab_content = true;
-                break;
-            case 'login':
-                $scope.tab_content = true;
-                break;
+                break;            
             case 'logout':
-                $scope.tab_content = true;
-                $location.path("/landing");
-                break;    
-            case 'register':
-                $scope.tab_content = true;
-                break;
+                $scope.tab_content = true;                
+                break;                
             case 'boards':
             	main.getBoards();              
                 break;
@@ -37,6 +26,8 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         }       
     }
 
+
+    /*
     main.login = function() {
         $location.path("/login");
     }
@@ -46,7 +37,7 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
     }
 
 
-
+    
     main.auth = function() {
 
         var user_credentials = {
@@ -102,7 +93,7 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         });
        
        $location.path("/");
-    }  
+    } */ 
 
     main.getBoard = function(board) {
     	$scope.editBoard = true;
@@ -143,9 +134,13 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         });
     }
 
-    main.addNewBoard = function() {    	
-    	$scope.editBoard=false;    	
+    main.addNewBoard = function() {    	    	
     	$location.path("/boards/newboard");
+    }
+
+    main.logout = function() {            
+        main.loggedIn = false;
+        $location.path("/");   
     }
 
     main.getLocations = function() {

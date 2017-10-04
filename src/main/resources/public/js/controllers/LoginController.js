@@ -54,15 +54,13 @@ weatherApp.controller('LoginController', ['$scope', '$http', '$timeout', '$locat
             login.successfullRegister = true;
             login.unsuccessfullRegister = false;
             login.invalidInput = false;
-            login.serverError = false;
+            login.serverError = false;            
+            $location.path("/");
         }).error(function (data, status) {
             login.invalidInput = false;
            login.successfullRegister = false;
            login.unsuccessfullRegister = true;
             login.loggedIn = false;
         });
-       
-       $location.path("/");
     }   
-
 }]);

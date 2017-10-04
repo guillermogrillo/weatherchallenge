@@ -6,28 +6,17 @@ weatherApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
 
     $routeProvider
     	.when("/", {
-    		templateUrl: "views/home.html",
-    		contentUrl: "views/landing.html",
+    		templateUrl: "views/landing.html",
     		controller: "WeatherController as main",
     		resource: "landing"
     	})
-        .when("/login", {
-            templateUrl: "views/home.html",
-            contentUrl: "views/login.html",
-            controller: "WeatherController as main",
-            resource: "landing"
-        })
-        .when("/logout", {
-            templateUrl: "views/home.html",
-            contentUrl: "views/landing.html",
-            controller: "WeatherController as main",
-            resource: "logout"
-        })
+        .when("/login", {            
+            templateUrl: "views/login.html",
+            controller: "LoginController as login"
+        })        
         .when("/register", {
-            templateUrl: "views/home.html",
-            contentUrl: "views/register.html",
-            controller: "WeatherController as main",
-            resource: "register"
+            templateUrl: "views/register.html",
+            controller: "LoginController as login"
         })
         .when("/boards", {
             templateUrl: "views/home.html",
