@@ -84,5 +84,13 @@ div .glyphicon {
     margin-right: 30px;
 }
 
+.header-button {
+    font-family: 'Lato';'
+}
+
+.navbar-default .navbar-nav .header-button {
+    color: rgb(246, 247, 246);
+}
+
 
 

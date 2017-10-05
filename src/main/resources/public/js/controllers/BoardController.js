@@ -1,4 +1,4 @@
-weatherApp.controller('BoardController', ['$scope', '$http', '$timeout', '$location', function($scope, $http, $timeout, $location) {
+weatherApp.controller('BoardController', ['$scope', '$http', '$timeout', '$location','ng.inputSearch', function($scope, $http, $timeout, $location, $inputSearch) {
 
     $http.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -56,18 +56,6 @@ weatherApp.controller('BoardController', ['$scope', '$http', '$timeout', '$locat
     main.addNewBoard = function() {    	
     	$scope.editBoard=false;    	
     	$location.path("/boards/newboard");
-    }
-
-    main.getLocations = function() {
-    	$http.get('/api/'+ localStorage.getItem('userId') +'/boards/').success(function(result) {    		
-            $scope.locationsAvailable = result.data;                    
-        }).error(function (data, status) {        	
-            $scope.userBoards = [];
-        });
-    }
-
-    main.pushLocation = function(location) {
-    	$scope.boardLocations.push(location);
     }
 
     main.init();

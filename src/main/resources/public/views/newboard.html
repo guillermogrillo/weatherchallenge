@@ -6,20 +6,24 @@
 				<button type="button" class="btn btn-danger" ng-click="main.postBoard()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Save</button>
 			</div>        
 	    </div>
-		<div class="row">
-			<label for="description">Description</label>
-			<input type="text" class="form-control" id="description" placeholder="Board description">
-			<label for="btngrp-search2" class="wb-inv">Search</label>
-		  	<div class="input-group">
-		    	<input type="text" class="form-control" id="btngrp-search2" placeholder="Location name" />
-		    	<span class="input-group-btn">
-		     		<button class="btn btn-default" type="button">Search</button>
-		    	</span>
-		    </div>	
+		<div class="container-fluid">
+			<div class="row">
+				<form class="form-inline" role="form">
+					<label for="description">Description: </label>
+					<input type="text" class="form-control" id="description" placeholder="Board description">	
+				</form>	
+			</div>
+		  	<div class="row">
+		  		<label for="locationInput">Location: </label>
+				<input type="text" ng-model="asyncSelected" placeholder="Location..." uib-typeahead="loc for loc in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+			    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+			    <div ng-show="noResults">
+			      <i class="glyphicon glyphicon-remove"></i> No Results Found
+			    </div>
+		  	</div>
 		</div>
 	    <div class="row">
-	    	<table class="table">
-	    		<th>Location</th>
+	    	<table class="table">	    		
 	    		<tr ng-repeat="l in locations">    		
 	    			<td>
 	    				<span class="glyphicon glyphicon-map-marker">{{l.name}},{{l.countryShortName}}</span>

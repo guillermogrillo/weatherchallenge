@@ -1,6 +1,6 @@
 'use strict';
 
-var weatherApp = angular.module('weatherApp',['ngRoute','ngTable']);
+var weatherApp = angular.module('weatherApp',['ngRoute','ngTable','ui.bootstrap']);
 
 weatherApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
 

@@ -6,7 +6,9 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
     
     $scope.contentUrl = $route.current.$$route.contentUrl;
     $scope.tab_content = false;
-    $scope.resourceId = $routeParams.param;    
+    $scope.resourceId = $routeParams.param; 
+    $scope.locations = [];   
+    $scope.selectedLocation = {};
     
     main.init = function(resource) {
     	switch(resource) {
@@ -19,81 +21,11 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
             case 'boards':
             	main.getBoards();              
                 break;
-            case 'new_board':
-                $scope.locations=[{"woeid":"2347008", "name":"Bari", "countryShortName":"SOM", "code":"SO03"},{"woeid":"7153299", "name":"Hainaut", "countryShortName":"BEL", "code":""}];
+            case 'new_board':                
                 $scope.tab_content = true;
                 break;                
         }       
     }
-
-
-    /*
-    main.login = function() {
-        $location.path("/login");
-    }
-    
-    main.register = function() {
-    	$location.path("/register");
-    }
-
-
-    
-    main.auth = function() {
-
-        var user_credentials = {
-            "username": main.user.username,
-            "password": main.user.password
-        }
-
-        // Login an user
-        $http.post('api/login/', user_credentials).success(function(response) {
-            if(response.result === 0) {
-                main.loggedIn = true;
-
-                main.invalidInput = false;
-                main.serverError = false;
-
-                localStorage['userId'] = response.data.id;
-                localStorage['username'] = response.data.username;
-                $location.path("/boards");
-            }
-            else {
-                main.loggedIn = false;
-                main.invalidInput = true;
-            }
-        }).error(function (data, status) {
-            if(data === null) {
-                main.invalidInput = true;
-            }
-            else {
-                main.serverError = true;
-            }
-            main.loggedIn = false;
-        });
-    }
-    
-    main.register = function() {
-       
-       var user_credentials = {
-            "username": login.user.username,
-            "password": login.user.password
-        }
-       
-       $http.post('api/register/', user_credentials).success(function(data) {
-            main.loggedIn = true;
-            main.successfullRegister = true;
-            main.unsuccessfullRegister = false;
-            main.invalidInput = false;
-            main.serverError = false;
-        }).error(function (data, status) {
-            main.invalidInput = false;
-           	main.successfullRegister = false;
-           	main.unsuccessfullRegister = true;
-            main.loggedIn = false;
-        });
-       
-       $location.path("/");
-    } */ 
 
     main.getBoard = function(board) {
     	$scope.editBoard = true;
@@ -142,18 +74,25 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         main.loggedIn = false;
         $location.path("/");   
     }
-
-    main.getLocations = function() {
-    	$http.get('/api/'+ localStorage.getItem('userId') +'/boards/').success(function(result) {    		
-            $scope.locationsAvailable = result.data;                    
-        }).error(function (data, status) {        	
-            $scope.userBoards = [];
+    
+    $scope.getLocation = function(val) {
+        var uri = "https://query.yahooapis.com/v1/public/yql?q=select * from geo.places where text='*"+val+"*'&format=json";
+        var encodedUri = encodeURI(uri); 
+        var locationsFound = [];
+        return $http.get(encodedUri).then(function(response){
+            return response.data.query.results.place.map(function(item){
+                if(item !== null && item.locality1 !== null && item.country !== null){                    
+                    var locationItem = {};
+                    locationItem.name = item.locality1.content;
+                    locationItem.woeid = item.woeid;
+                    locationItem.country = item.country.content;
+                    var jsonLocation = JSON.stringify(locationItem);                    
+                    return jsonLocation;
+                }                
+                
+            });     
         });
-    }
-
-    main.pushLocation = function(location) {
-    	$scope.boardLocations.push(location);
-    }
+    };
 
     main.init($route.current.$$route.resource);
 
