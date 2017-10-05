@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row container">
-        <button type="button" class="btn btn-success" ng-click="main.addNewBoard()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add board</button>
+        <span class="glyphicon glyphicon-plus" title="Add new board" aria-hidden="true" ng-click="main.addNewBoard()"></span>
     </div>
     <div class="row container">
         <div class="panel-group" id="accordion">                            
@@ -8,11 +8,12 @@
                 <div class="boards-panel-heading" ng-repeat="b in boards">
                     <div class="panel-heading">
                         <h4 class="panel-title">          
-                            <span>{{b.description}}</span>                        
+                            <span>{{b.description}}</span>
+                            <span>(Last updated: {{b.lastUpdate}})</span>                        
                             <div class="pull-right">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="main.editBoard(b)">
-                                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"/>
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="main.deleteBoard(b.id)"/>                            
+                                <span class="glyphicon glyphicon-plus" title="Add locations to this board" aria-hidden="true" ng-click="main.editBoard(b)"></span>
+                                <span class="glyphicon glyphicon-zoom-in" title="Check this board info" aria-hidden="true" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"></span>
+                                <span class="glyphicon glyphicon-trash" title="Delete this board" aria-hidden="true" ng-click="main.deleteBoard(b.id)"></span>
                             </div>                            
                         </h4>
                     </div>
@@ -22,10 +23,10 @@
                                 <div class="panel-body">                                    
                                     <div class="panel-heading">
                                         <div class="panel-title">
-                                            <span class="glyphicon glyphicon-map-marker">{{w.description}}</span>                                            
+                                            <span class="glyphicon glyphicon-map-marker">{{w.city}},{{w.country}}</span>                                            
                                             <div class="pull-right">                                                
-                                                <span class="glyphicon glyphicon-chevron-down" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}-{{$index}}"></span>                                        
-                                                <span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="main.deleteLocationFromBoard(b.id,w.description)"></span>
+                                                <span class="glyphicon glyphicon-chevron-down" title="Check the forecast for this location"data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}-{{$index}}"></span>                                        
+                                                <span class="glyphicon glyphicon-trash" title="Delete this location from the board" aria-hidden="true" ng-click="main.deleteLocationFromBoard(b.id,w.woeid)"></span>
                                             </div>
                                         </div>                                                                                    
                                     </div>    

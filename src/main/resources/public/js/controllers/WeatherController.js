@@ -126,22 +126,16 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
 
     var parseListWoeids = function(listLocations){    
         var listWoeids = [];
+        var regExp = /\(([^)]+)\)/;
         angular.forEach(listLocations, function(value, key) {
-            getWoeidFromLocation(value)            
+            var matches = regExp.exec(value);            
+            if (matches) {
+                var submatch = matches[1];
+                listWoeids.push(submatch);
+            }
         }, listWoeids);
         return listWoeids;
     }
-
-    var getWoeidFromLocation = function(location) {
-        var regExp = /\(([^)]+)\)/;
-        var matches = regExp.exec(location);            
-        if (matches) {
-            var submatch = matches[1];
-            return submatch;
-        }
-        return null;
-    }
-
 
     main.addNewBoard = function() {    	    	
     	$location.path("/boards/newboard");
@@ -176,8 +170,7 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         }
     }
 
-    main.deleteLocationFromBoard = function(boardId, location) {
-        var woeid = getWoeidFromLocation(location);
+    main.deleteLocationFromBoard = function(boardId, woeid) {        
         $http.delete('api/'+ localStorage.getItem('userId') +'/boards/'+boardId+'/'+woeid).success(function(response) {
             if(response.result === 0) {
                 main.init('boards');      

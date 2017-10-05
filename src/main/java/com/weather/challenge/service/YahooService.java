@@ -35,7 +35,9 @@ public class YahooService {
         try {
             Channel channel = yahooWeatherService.getForecast(woeid, DegreeUnit.CELSIUS);
             weather = new Weather();
-            weather.setDescription(channel.getLocation().getCity() + "," + channel.getLocation().getCountry()+"("+woeid+")");
+            weather.setCity(channel.getLocation().getCity());
+            weather.setCountry(channel.getLocation().getCountry());
+            weather.setWoeid(woeid);
             weather.setCondition(new Condition(channel.getItem().getCondition().getText(), channel.getItem().getCondition().getTemp(), parseDate(channel.getItem().getCondition().getDate().toString()), channel.getItem().getCondition().getCode()));
             List<Forecast> forecasts = new ArrayList<Forecast>();
             for (com.github.fedy2.weather.data.Forecast f : channel.getItem().getForecasts()) {

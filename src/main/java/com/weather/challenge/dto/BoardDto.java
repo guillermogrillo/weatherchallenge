@@ -1,5 +1,7 @@
 package com.weather.challenge.dto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +12,21 @@ public class BoardDto {
 	private String id;
     private String description;
     private List<Weather> weathers;
+    private String lastUpdate;
+    
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
     public BoardDto(String id, String description, List<Weather> weathers) {
 		super();
 		this.setId(id);
 		this.description = description;
 		this.weathers = new ArrayList<>();
+		this.lastUpdate = LocalDateTime.now().format(formatter);
 	}
 
 	public BoardDto() {
 		this.weathers = new ArrayList<>();
+		this.lastUpdate = LocalDateTime.now().format(formatter);
     }
 
     public String getDescription() {
@@ -44,6 +51,14 @@ public class BoardDto {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(String lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 }
