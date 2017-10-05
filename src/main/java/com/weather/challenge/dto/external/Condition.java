@@ -5,11 +5,13 @@ public class Condition {
     private String description;
     private int temp;
     private String date;
+    private int code;
 
-    public Condition(String description, int temp, String date) {
+    public Condition(String description, int temp, String date, int code) {
         this.description = description;
         this.temp = temp;
         this.date = date;
+        this.code = code;
     }
 
     public Condition(){
@@ -39,4 +41,12 @@ public class Condition {
     public void setDate(String date) {
         this.date = date;
     }
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
 }

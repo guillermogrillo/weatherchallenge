@@ -6,12 +6,14 @@ public class Forecast {
     private Integer low;
     private Integer high;
     private String text;
+    private int code;
 
-    public Forecast(String date, Integer low, Integer high, String text) {
+    public Forecast(String date, Integer low, Integer high, String text, int code) {
         this.date = date;
         this.low = low;
         this.high = high;
         this.text = text;
+        this.code = code;
     }
 
     public Forecast() {
@@ -48,4 +50,12 @@ public class Forecast {
     public void setText(String text) {
         this.text = text;
     }
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
 }

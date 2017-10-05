@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,18 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.NewBoardDto;
-import com.weather.challenge.dto.UserDataDto;
 import com.weather.challenge.dto.UserDto;
 import com.weather.challenge.dto.UserLoginDto;
-import com.weather.challenge.dto.external.Place;
-import com.weather.challenge.dto.external.Weather;
 import com.weather.challenge.exception.ExistingUserException;
 import com.weather.challenge.exception.InvalidPasswordException;
 import com.weather.challenge.exception.UnexistingUserException;
 import com.weather.challenge.service.UserService;
 import com.weather.challenge.service.WeatherService;
 import com.weather.challenge.service.YahooService;
-import com.weather.challenge.util.PlaceHelper;
 import com.weather.challenge.util.WeatherServiceCode;
 
 @RestController
@@ -47,14 +42,8 @@ public class WeatherController extends GenericController {
 	private UserService userService;
 
 	@Autowired
-	private YahooService yahooService;
-
-	@Autowired
-	private PlaceHelper placeHelper;
+	private YahooService yahooService;	
 	
-	 @Autowired
-	 private SimpMessagingTemplate brokerMessagingTemplate;
-
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody UserLoginDto dto) throws ExistingUserException {
 		userService.register(dto);
@@ -68,10 +57,6 @@ public class WeatherController extends GenericController {
 		String response = createResponse(WeatherServiceCode.OK, userDto);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
-
-	/*
-	 * Boards
-	 */
 
 	@GetMapping("/{userId}/boards")
 	public ResponseEntity<String> getBoards(@PathVariable final String userId) {
@@ -99,47 +84,21 @@ public class WeatherController extends GenericController {
 	}
 
 	@DeleteMapping("/{userId}/boards/{boardId}")
-	public ResponseEntity<String> deleteBoard(@PathVariable String boardId) {
+	public ResponseEntity<String> deleteBoard(@PathVariable String userId, @PathVariable String boardId) {
 		logger.info("deleteBoard with id " + boardId);
 		weatherService.deleteBoard(boardId);
 		String response = createResponse(WeatherServiceCode.OK);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
-
-	/**
-	 * Yahoo Service
-	 */
-
-	@GetMapping("/getWeather/{woeid}")
-	public ResponseEntity<String> getWeatherByWoeid(@PathVariable String woeid) {
-		Weather weather = yahooService.findWeatherByWoeid(new String(woeid));
-		String response = createResponse(WeatherServiceCode.OK, weather);
+	
+	@DeleteMapping("/{userId}/boards/{boardId}/{woeid}")
+	public ResponseEntity<String> deleteLocationFromBoard(@PathVariable String userId, @PathVariable String boardId, @PathVariable String woeid){
+		logger.info("delete location "+woeid+" from board " + boardId);
+		weatherService.deleteLocationFromBoard(boardId,woeid);
+		String response = createResponse(WeatherServiceCode.OK);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("/getLocationByName/{location}")
-	public ResponseEntity<String> getLocationsByName(@PathVariable String location) {
-		List<Place> places = placeHelper.getPlacesByName(location);
-		String response = createResponse(WeatherServiceCode.OK, places);
-		return new ResponseEntity<String>(response, HttpStatus.OK);
-	}
-
-	@GetMapping("/getLocationByWoeid/{woeid}")
-	public ResponseEntity<String> getLocationByWoeid(@PathVariable String woeid) {
-		Place place = placeHelper.getPlaceByWoeid(woeid);
-		String response = createResponse(WeatherServiceCode.OK, place);
-		return new ResponseEntity<String>(response, HttpStatus.OK);
-	}
-
-	/**
-	 * Servicio para pollear data
-	 */
-
-//	@Scheduled(fixedRate = 60000)
-//	public void getWeatherNews(String userId) throws Exception {
-//		UserDataDto userData = weatherService.getWeatherNews(userId);
-//		brokerMessagingTemplate.convertAndSend("/topic/weather", userData);
-//	}
 	
 	/**
 	 * Manejo de excepciones

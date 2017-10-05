@@ -3,21 +3,19 @@ package com.weather.challenge.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.weather.challenge.dto.external.Place;
-
 public class NewBoardDto {
 
 	private String description;
-	private List<Place> places;
-	
-	public NewBoardDto(String description, List<Place> places) {
+	private List<String> woeids;
+
+	public NewBoardDto(String description, List<String> woeids) {
 		super();
 		this.description = description;
-		this.places = new ArrayList<>();
+		this.woeids = new ArrayList<>();
 	}
 
 	public NewBoardDto() {
-		this.places = new ArrayList<>();
+		this.woeids = new ArrayList<>();
 	}
 
 	public String getDescription() {
@@ -28,12 +26,12 @@ public class NewBoardDto {
 		this.description = description;
 	}
 
-	public List<Place> getPlaces() {
-		return places;
+	public List<String> getWoeids() {
+		return woeids;
 	}
 
-	public void setPlaces(List<Place> places) {
-		this.places = places;
+	public void setWoeids(List<String> woeids) {
+		this.woeids = woeids;
 	}
 
 }

@@ -5,15 +5,11 @@ import java.util.List;
 public class Weather {
 
     private String description;
-    private Wind wind;
-    private Atmosphere atmosphere;
     private Condition condition;
     private List<Forecast> forecasts;
 
-    public Weather(String description, Wind wind, Atmosphere atmosphere, Condition condition, List<Forecast> forecasts) {
+    public Weather(String description, Condition condition, List<Forecast> forecasts) {
         this.description = description;
-        this.wind = wind;
-        this.atmosphere = atmosphere;
         this.condition = condition;
         this.forecasts = forecasts;
     }
@@ -28,22 +24,6 @@ public class Weather {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Wind getWind() {
-        return wind;
-    }
-
-    public void setWind(Wind wind) {
-        this.wind = wind;
-    }
-
-    public Atmosphere getAtmosphere() {
-        return atmosphere;
-    }
-
-    public void setAtmosphere(Atmosphere atmosphere) {
-        this.atmosphere = atmosphere;
     }
 
     public Condition getCondition() {

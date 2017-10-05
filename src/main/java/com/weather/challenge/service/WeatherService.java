@@ -10,7 +10,6 @@ import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.NewBoardDto;
 import com.weather.challenge.dto.UserDataDto;
 import com.weather.challenge.dto.UserDto;
-import com.weather.challenge.dto.external.Place;
 import com.weather.challenge.dto.external.Weather;
 import com.weather.challenge.entity.Board;
 import com.weather.challenge.entity.User;
@@ -63,13 +62,7 @@ public class WeatherService {
         User user = userRepository.findOne(userId);
         board.setUser(user);
         board.setDescription(dto.getDescription());
-        List<Place> places = new ArrayList<>();
-        places.add(new Place("2347008", "Bari", "SOM", "SO03"));
-        places.add(new Place("7153299", "Hainaut", "BEL", ""));
-        dto.setPlaces(places);
-        for (Place place : dto.getPlaces()) {
-			board.getWoeids().add(place.getWoeid());
-		}
+        board.getWoeids().addAll(dto.getWoeids());
         boardRepository.save(board);
     }
 
@@ -90,6 +83,12 @@ public class WeatherService {
 			boards.add(new BoardDto(board.getId(),board.getDescription(), weathers));
 		}
 		return new UserDataDto(userDto, boards);
+	}
+
+	public void deleteLocationFromBoard(String boardId, String woeid) {
+		Board board = boardRepository.findOne(boardId);
+		board.getWoeids().removeIf(w -> w.equals(woeid));
+		boardRepository.save(board);
 	}
 
 }

@@ -15,9 +15,9 @@ body {
     width: 23%;
     float: left;
     margin: 1%;
-    border: 1px solid black;
+    border: 1px solid white;
     text-align: center;
-    border-radius: 3px;
+    border-radius: 4px;
     background-color: rgba(0,100,255,0.2);    
 }
 
@@ -34,6 +34,10 @@ body .weather-icon-size {
 }
 
 div .glyphicon {
+    pointer-events: all;
+}
+
+span .glyphicon {
     pointer-events: all;
 }
 
