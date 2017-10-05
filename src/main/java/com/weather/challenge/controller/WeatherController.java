@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,14 +63,6 @@ public class WeatherController extends GenericController {
 		UserDto user = userService.getUser(userId);
 		List<BoardDto> boards = weatherService.getBoards(user);
 		String response = createResponse(WeatherServiceCode.OK, boards);
-		return new ResponseEntity<String>(response, HttpStatus.OK);
-	}
-
-	@GetMapping("/{userId}/boards/{boardId}")
-	public ResponseEntity<String> getBoard(@PathVariable String userId, @PathVariable String boardId) {
-		logger.info("getBoard request for id" + boardId);
-		BoardDto board = weatherService.getBoard(boardId);
-		String response = createResponse(WeatherServiceCode.OK, board);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 

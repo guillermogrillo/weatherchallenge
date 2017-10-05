@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.weather.challenge.dto.BoardDto;
 import com.weather.challenge.dto.NewBoardDto;
-import com.weather.challenge.dto.UserDataDto;
 import com.weather.challenge.dto.UserDto;
-import com.weather.challenge.dto.external.Weather;
 import com.weather.challenge.entity.Board;
 import com.weather.challenge.entity.User;
 import com.weather.challenge.repository.BoardRepository;
@@ -38,23 +36,12 @@ public class WeatherService {
                 boardDto.setId(board.getId());
                 boardDto.setDescription(board.getDescription());
                 for (String woeid : board.getWoeids()) {
-					boardDto.getWeathers().add(yahooService.findWeatherByWoeid(woeid));
+					boardDto.getLocations().add(yahooService.findWeatherByWoeid(woeid));
 				}
                 retBoards.add(boardDto);
             }
         }
         return retBoards;
-    }
-
-    public BoardDto getBoard(String id) {
-        Board board = boardRepository.findOne(id);
-        BoardDto boardDto = new BoardDto();
-        boardDto.setId(board.getId());
-        boardDto.setDescription(board.getDescription());
-        for (String woeid : board.getWoeids()) {
-			boardDto.getWeathers().add(yahooService.findWeatherByWoeid(woeid));
-		}
-        return boardDto;
     }
 
     public void saveBoard(NewBoardDto dto, String userId) {
@@ -69,21 +56,6 @@ public class WeatherService {
     public void deleteBoard(String id) {
         boardRepository.delete(id);
     }
-
-	public UserDataDto getWeatherNews(String userId) {
-		User user = userRepository.findOne(userId);
-		UserDto userDto = new UserDto(user.getId(), user.getUsername());
-		List<Board> userBoards = boardRepository.getByUserId(userId);
-		List<BoardDto> boards = new ArrayList<>();
-		List<Weather> weathers = new ArrayList<>();
-		for (Board board : userBoards) {
-			for (String woeid: board.getWoeids()) {
-				weathers.add(yahooService.findWeatherByWoeid(woeid));
-			}
-			boards.add(new BoardDto(board.getId(),board.getDescription(), weathers));
-		}
-		return new UserDataDto(userDto, boards);
-	}
 
 	public void deleteLocationFromBoard(String boardId, String woeid) {
 		Board board = boardRepository.findOne(boardId);

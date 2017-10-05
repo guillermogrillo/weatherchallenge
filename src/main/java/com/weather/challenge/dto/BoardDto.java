@@ -11,7 +11,7 @@ public class BoardDto {
 	
 	private String id;
     private String description;
-    private List<Weather> weathers;
+    private List<LocationDto> locations;
     private String lastUpdate;
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -20,12 +20,12 @@ public class BoardDto {
 		super();
 		this.setId(id);
 		this.description = description;
-		this.weathers = new ArrayList<>();
+		this.locations = new ArrayList<>();
 		this.lastUpdate = LocalDateTime.now().format(formatter);
 	}
 
 	public BoardDto() {
-		this.weathers = new ArrayList<>();
+		this.locations = new ArrayList<>();
 		this.lastUpdate = LocalDateTime.now().format(formatter);
     }
 
@@ -36,14 +36,6 @@ public class BoardDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
-	public List<Weather> getWeathers() {
-		return weathers;
-	}
-
-	public void setWeathers(List<Weather> weathers) {
-		this.weathers = weathers;
-	}
 
 	public String getId() {
 		return id;
@@ -59,6 +51,14 @@ public class BoardDto {
 
 	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public List<LocationDto> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<LocationDto> locations) {
+		this.locations = locations;
 	}
 
 }

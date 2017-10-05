@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.github.fedy2.weather.YahooWeatherService;
 import com.github.fedy2.weather.data.Channel;
 import com.github.fedy2.weather.data.unit.DegreeUnit;
+import com.weather.challenge.dto.LocationDto;
 import com.weather.challenge.dto.external.Condition;
 import com.weather.challenge.dto.external.Forecast;
 import com.weather.challenge.dto.external.Weather;
@@ -30,26 +31,33 @@ public class YahooService {
         yahooWeatherService = new YahooWeatherService();
     }
 
-    public Weather findWeatherByWoeid(String woeid) {
-        Weather weather = null;
+    public LocationDto findWeatherByWoeid(String woeid) {
+    	LocationDto location = null;
         try {
             Channel channel = yahooWeatherService.getForecast(woeid, DegreeUnit.CELSIUS);
-            weather = new Weather();
-            weather.setCity(channel.getLocation().getCity());
-            weather.setCountry(channel.getLocation().getCountry());
-            weather.setWoeid(woeid);
-            weather.setCondition(new Condition(channel.getItem().getCondition().getText(), channel.getItem().getCondition().getTemp(), parseDate(channel.getItem().getCondition().getDate().toString()), channel.getItem().getCondition().getCode()));
-            List<Forecast> forecasts = new ArrayList<Forecast>();
-            for (com.github.fedy2.weather.data.Forecast f : channel.getItem().getForecasts()) {
-                forecasts.add(new Forecast(parseDate(f.getDate().toString()),f.getLow(),f.getHigh(),f.getText(),f.getCode()));
-            }
-            weather.setForecasts(forecasts.stream().limit(4).collect(Collectors.toList()));
+            location = new LocationDto();
+            location.setCity(channel.getLocation().getCity());
+            location.setCountry(channel.getLocation().getCountry());
+            location.setWoeid(woeid);
+            location.setWeather(getWeather(channel));
         } catch (Exception e) {
             logger.error("Error consuming YahooWeatherService");
             logger.error(e.getMessage());
         }
-        return weather;
+        return location;
     }
+
+	private Weather getWeather(Channel channel) {
+		Weather weather = new Weather();
+        weather.setCondition(new Condition(channel.getItem().getCondition().getText(), channel.getItem().getCondition().getTemp(), parseDate(channel.getItem().getCondition().getDate().toString()), channel.getItem().getCondition().getCode()));
+        List<Forecast> forecastsRet = new ArrayList<Forecast>();
+        List<com.github.fedy2.weather.data.Forecast> forecasts = channel.getItem().getForecasts().stream().limit(4).collect(Collectors.toList());
+        for (com.github.fedy2.weather.data.Forecast f : forecasts) {
+            forecastsRet.add(new Forecast(parseDate(f.getDate().toString()),f.getLow(),f.getHigh(),f.getText(),f.getCode()));
+        }
+        weather.setForecasts(forecastsRet);
+		return weather;
+	}
 
 	private String parseDate(String date) {
 		SimpleDateFormat formatnow = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH); 

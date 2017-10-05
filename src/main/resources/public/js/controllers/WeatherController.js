@@ -11,6 +11,7 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
     $scope.selectedLocation = {};
 
     main.newBoardInfo = {};
+    main.selectedBoard = {};
 
     var weatherLogoMap = {
         0 : "wi wi-tornado",
@@ -76,7 +77,12 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
                 break;
             case 'new_board':                
                 $scope.tab_content = true;
-                break;                
+                break;
+            case 'update_board':
+                main.newBoardInfo.description = main.selectedBoard.description;
+                main.newBoardInfo.locations = main.selectedBoard.locations;
+                $scope.tab_content = true;
+                break;                    
         }       
     }
 
