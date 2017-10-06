@@ -1,20 +1,20 @@
 package com.weather.challenge.dto.external;
 
-public class Condition {
+public class ConditionDto {
 
     private String description;
     private int temp;
     private String date;
     private int code;
 
-    public Condition(String description, int temp, String date, int code) {
+    public ConditionDto(String description, int temp, String date, int code) {
         this.description = description;
         this.temp = temp;
         this.date = date;
         this.code = code;
     }
 
-    public Condition(){
+    public ConditionDto(){
 
     }
 

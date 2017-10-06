@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.weather.challenge.dto.external.Weather;
+import com.weather.challenge.dto.external.WeatherDto;
 
 public class BoardDto {
 	
@@ -16,17 +16,17 @@ public class BoardDto {
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
-    public BoardDto(String id, String description, List<Weather> weathers) {
+    public BoardDto(String id, String description, List<WeatherDto> weathers) {
 		super();
 		this.setId(id);
 		this.description = description;
 		this.locations = new ArrayList<>();
-		this.lastUpdate = LocalDateTime.now().format(formatter);
+//		this.lastUpdate = LocalDateTime.now().format(formatter);
 	}
 
 	public BoardDto() {
 		this.locations = new ArrayList<>();
-		this.lastUpdate = LocalDateTime.now().format(formatter);
+//		this.lastUpdate = LocalDateTime.now().format(formatter);
     }
 
     public String getDescription() {

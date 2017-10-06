@@ -1,24 +1,13 @@
 package com.weather.challenge.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.weather.challenge.dto.external.Weather;
+import com.weather.challenge.dto.external.WeatherDto;
 
 public class LocationDto {
 
 	private String city;
 	private String country;
 	private String woeid;
-	private Weather weather;
-
-	public LocationDto(String city, String country, String woeid, Weather weather) {
-		super();
-		this.city = city;
-		this.country = country;
-		this.woeid = woeid;
-		this.weather = weather;
-	}
+	private WeatherDto weather;
 
 	public LocationDto() {
 	}
@@ -47,12 +36,12 @@ public class LocationDto {
 		this.woeid = woeid;
 	}
 
-	public Weather getWeather() {
+	public WeatherDto getWeather() {
 		return weather;
 	}
 
-	public void setWeather(Weather weather) {
+	public void setWeather(WeatherDto weather) {
 		this.weather = weather;
 	}
-	
+
 }

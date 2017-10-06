@@ -38,9 +38,11 @@ public class UserService {
 
 	public UserDto login(UserLoginDto dto) throws UnexistingUserException, InvalidPasswordException {
 		User user = userRepository.findByUsername(dto.getUsername());
-		if (!securityService.checkPassword(dto.getPassword(), user.getPassword())) {
+		if (user == null)
 			throw new UnexistingUserException("The user does not exist!");
-		}
+		if (!securityService.checkPassword(dto.getPassword(), user.getPassword())) 
+			throw new InvalidPasswordException("The password is incorrect!");
+		
 		return new UserDto(user.getId(), user.getUsername());
 	}
 

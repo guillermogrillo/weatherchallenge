@@ -13,13 +13,11 @@ public class Board {
 	private String description;
 	@DBRef
 	private User user;
-	private List<String> woeids;
+	private List<Location> locations;
 
 	public Board() {
-		woeids = new ArrayList<>();
+		locations = new ArrayList<>();
 	}
-
-
 
 	public String getId() {
 		return id;
@@ -37,14 +35,6 @@ public class Board {
 		this.description = description;
 	}
 
-	public List<String> getWoeids() {
-		return woeids;
-	}
-
-	public void setWoeids(List<String> woeids) {
-		this.woeids = woeids;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -52,4 +42,16 @@ public class Board {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public List<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
+	}
+	
+	
+	
+	
 }
