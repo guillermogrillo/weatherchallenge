@@ -1,7 +1,5 @@
 package com.weather.challenge.entity;
 
-import org.springframework.data.annotation.Id;
-
 public class Forecast {
 
 	private Integer low;

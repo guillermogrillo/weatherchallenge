@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Weather {
-
+	
+	@Id
+	private String woeid;
 	private Integer temperature;
 	private String description;
 	private String date;
 	private Integer code;
-	private String woeid;
 	private String lastUpdateDateTime;
 	private List<Forecast> forecasts;
+	@DBRef
+	private Location location;
 	
 	public Weather() {
 		forecasts = new ArrayList<>();
@@ -73,6 +77,14 @@ public class Weather {
 
 	public void setLastUpdateDateTime(String lastUpdateDateTime) {
 		this.lastUpdateDateTime = lastUpdateDateTime;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 }

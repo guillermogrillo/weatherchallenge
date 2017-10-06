@@ -11,13 +11,17 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.fedy2.weather.YahooWeatherService;
 import com.github.fedy2.weather.data.Channel;
 import com.github.fedy2.weather.data.unit.DegreeUnit;
+import com.weather.challenge.entity.Board;
 import com.weather.challenge.entity.Location;
 import com.weather.challenge.entity.Weather;
+import com.weather.challenge.repository.LocationRepository;
+import com.weather.challenge.repository.WeatherRepository;
 
 @Service
 public class YahooService {
@@ -25,32 +29,44 @@ public class YahooService {
 	Logger logger = LoggerFactory.getLogger(YahooService.class);
 
 	private YahooWeatherService yahooWeatherService;
+	
+	@Autowired
+	private WeatherRepository weatherRepository;
+	
+	@Autowired
+	private LocationRepository locationRepository;
 
 	public YahooService() throws Exception {
 		yahooWeatherService = new YahooWeatherService();
 	}
 
-	public Weather findWeatherByWoeid(String woeid) {
+	public Weather findWeatherByWoeid(Location location) {
 		try {
-			logger.info("getForecast for " + woeid);
-			Channel channel = yahooWeatherService.getForecast(woeid, DegreeUnit.CELSIUS);
+			logger.info("getForecast for " + location.getWoeid());
+			Channel channel = yahooWeatherService.getForecast(location.getWoeid(), DegreeUnit.CELSIUS);
 			logger.info("Response: " + channel);
-			Weather weather = getWeatherFromYahooService(channel, woeid);
+			Weather weather = getWeatherFromYahooService(channel, location);
+			weatherRepository.save(weather);
 			return weather;
 		} catch (Exception e) {
 			logger.error("Error consuming YahooWeatherService");
 			logger.error(e.getMessage());
-			throw new RuntimeException("Could not get the updated weather for woeid=" + woeid);
+			throw new RuntimeException("Could not get the updated weather for woeid=" + location.getWoeid());
 		}
 	}
 
-	private Weather getWeatherFromYahooService(Channel channel, String woeid) {
+	private Weather getWeatherFromYahooService(Channel channel, Location location) {
+		Weather weather = buildWeather(channel, location);
+		return weather;
+	}
+
+	private Weather buildWeather(Channel channel, Location location) {
 		Weather weather = new Weather();
 		weather.setCode(channel.getItem().getCondition().getCode());
 		weather.setDate(parseDate(channel.getItem().getCondition().getDate().toString()));
 		weather.setDescription(channel.getItem().getCondition().getText());
 		weather.setTemperature(channel.getItem().getCondition().getTemp());
-		weather.setWoeid(woeid);
+		weather.setWoeid(location.getWoeid());
 		weather.setLastUpdateDateTime(LocalDateTime.now().toString());
 		List<com.github.fedy2.weather.data.Forecast> forecasts = channel.getItem().getForecasts().stream().limit(4)
 				.collect(Collectors.toList());
@@ -65,6 +81,7 @@ public class YahooService {
 			forecastList.add(f);
 		}
 		weather.setForecasts(forecastList);
+		weather.setLocation(location);
 		return weather;
 	}
 
@@ -82,7 +99,7 @@ public class YahooService {
 
 	}
 
-	public Location findLocationAndWeatherByWoeid(String woeid) {
+	public Location findLocationAndWeatherByWoeid(Board board, String woeid) {
 		try {
 			logger.info("getForecast for " + woeid);
 			Channel channel = yahooWeatherService.getForecast(woeid, DegreeUnit.CELSIUS);
@@ -91,7 +108,11 @@ public class YahooService {
 			location.setCity(channel.getLocation().getCity());
 			location.setCountry(channel.getLocation().getCountry());
 			location.setWoeid(woeid);
-			location.setWeather(getWeatherFromYahooService(channel, woeid));
+			location.getBoards().add(board);
+			Location savedLocation = locationRepository.save(location);
+			Weather weather = buildWeather(channel, savedLocation);
+			weather.setLocation(savedLocation);
+			weatherRepository.save(weather);
 			return location;
 		} catch (Exception e) {
 			logger.error("Error consuming YahooWeatherService");

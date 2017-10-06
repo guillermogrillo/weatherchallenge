@@ -1,11 +1,23 @@
 package com.weather.challenge.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 public class Location {
 
+	@Id
 	private String woeid;
 	private String city;
 	private String country;
-	private Weather weather;
+	@DBRef
+	private List<Board> boards;
+	
+	public Location() {
+		boards = new ArrayList<>();
+	}
 
 	public String getWoeid() {
 		return woeid;
@@ -31,12 +43,12 @@ public class Location {
 		this.country = country;
 	}
 
-	public Weather getWeather() {
-		return weather;
+	public List<Board> getBoards() {
+		return boards;
 	}
 
-	public void setWeather(Weather weather) {
-		this.weather = weather;
+	public void setBoards(List<Board> boards) {
+		this.boards = boards;
 	}
 
 }

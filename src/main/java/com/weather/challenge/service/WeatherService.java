@@ -50,6 +50,22 @@ public class WeatherService {
 		List<Board> boards = boardRepository.getByUserId(user.getId());
 		List<BoardDto> retBoards = new ArrayList<BoardDto>();
 		if (!boards.isEmpty()) {
+			BoardDto boardDto = new BoardDto();
+			for (Board board : boards) {
+				boardDto.setId(board.getId());
+				boardDto.setDescription(board.getDescription());
+				List<Location> boardLocations = locationRepository.getByBoardsId(board.getId());
+				List<LocationDto> locationDtos = new ArrayList<>();
+				for (Location location : boardLocations) {
+					LocationDto locationDto = mapLocationToLocationDto(location);
+					locationDtos.add(locationDto);
+				}
+				boardDto.setLocations(locationDtos);
+				retBoards.add(boardDto);
+			}
+		}
+		/*
+		if (!boards.isEmpty()) {
 			BoardDto boardDto = null;
 			for (Board board : boards) {
 				boardDto = new BoardDto();
@@ -72,6 +88,8 @@ public class WeatherService {
 			}
 			retBoards.add(boardDto);
 		}
+		* 
+		 */
 		return retBoards;
 	}
 
@@ -110,17 +128,15 @@ public class WeatherService {
 		User user = userRepository.findOne(userId);
 		board.setUser(user);
 		board.setDescription(dto.getDescription());
-		List<Location> locations = new ArrayList<>();
+		Board savedBoard = boardRepository.save(board);
 		for (String woeid : dto.getWoeids()) {
 			Optional<Location> oldLocation = locationRepository.findByWoeid(woeid);
 			if (oldLocation.isPresent()) {
-				locations.add(oldLocation.get());
+				oldLocation.get().getBoards().add(savedBoard);
 			} else {
-				locations.add(yahooService.findLocationAndWeatherByWoeid(woeid));
+				yahooService.findLocationAndWeatherByWoeid(savedBoard, woeid);
 			}
 		}
-		board.setLocations(locations);
-		boardRepository.save(board);
 	}
 
 	private Weather mapWeatherDtoToWeather(WeatherDto weatherDto) {
@@ -150,13 +166,16 @@ public class WeatherService {
 		return forecast;
 	}
 
-	private Location mapLocationDtoToLocation(LocationDto locationDto) {
-		Location location = new Location();
-		location.setCity(locationDto.getCity());
-		location.setCountry(locationDto.getCountry());
-		location.setWoeid(locationDto.getWoeid());
-		location.setWeather(mapWeatherDtoToWeather(locationDto.getWeather()));
-		return location;
+	private LocationDto mapLocationToLocationDto(Location location) {
+		LocationDto locationDto = new LocationDto();
+		locationDto.setCity(location.getCity());
+		locationDto.setCountry(location.getCountry());
+		locationDto.setWoeid(location.getWoeid());
+		Optional<Weather> weather = weatherRepository.findByWoeid(location.getWoeid());
+		if(weather.isPresent()){
+			locationDto.setWeather(mapWeatherToWeatherDto(weather.get()));
+		}
+		return locationDto;
 	}
 
 	public void deleteBoard(String id) {
@@ -164,21 +183,16 @@ public class WeatherService {
 	}
 
 	public void deleteLocationFromBoard(String boardId, String woeid) {
-		Board board = boardRepository.findOne(boardId);
-		board.getLocations().removeIf(l -> l.getWoeid().equals(woeid));
-		boardRepository.save(board);
+		Optional<Location> oldLocation = locationRepository.findByWoeid(woeid);
+		if(oldLocation.isPresent()){
+			oldLocation.get().getBoards().removeIf(b->b.getId().equals(boardId));
+			locationRepository.save(oldLocation.get());
+		}
 	}
 
 	public void updateWeatherInfo() {
-		List<String> woeids = locationRepository.findAll().stream().map(l->l.getWoeid()).distinct().collect(Collectors.toList());
-		for (String woeid : woeids) {
-			Weather updatedWeather = yahooService.findWeatherByWoeid(woeid);
-			Optional<Location> oldLocation = locationRepository.findByWoeid(woeid);
-			if(oldLocation.isPresent()) {
-				Location location = oldLocation.get();
-				location.setWeather(updatedWeather);
-				locationRepository.save(location);
-			}
+		for (Location location : locationRepository.findAll()) {
+			yahooService.findWeatherByWoeid(location);
 		}
 	}
 }
