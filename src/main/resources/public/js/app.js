@@ -24,6 +24,12 @@ weatherApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
             controller: "WeatherController as main",
             resource: "boards"
         })
+        .when("/boards/updateboard", {
+            templateUrl: "views/home.html",
+            contentUrl: "views/newboard.html",
+            controller: "WeatherController as main",
+            resource: "update_board"
+        }) 
         .when("/boards/newboard", {
             templateUrl: "views/home.html",
             contentUrl: "views/newboard.html",

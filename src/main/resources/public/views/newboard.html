@@ -10,19 +10,18 @@
 			<div class="row">
 				<form class="form-inline" role="form">
 					<label for="description">Description: </label>
-					<input type="text" class="form-control" id="description" placeholder="Board description" ng-model="main.newBoardInfo.description">	
+					<input type="text" class="form-control" id="description" placeholder="Board description" ng-model="main.boardInfo.description">	
 				</form>	
 			</div>
 		  	<div class="row">
 		  		<div class="container">
 		  			<form class="form-inline">
 		  				<label for="locationInput">Location: </label>		  	
-						<input type="text" ng-model="asyncSelected" uib-typeahead="loc for loc in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+						<input type="text" ng-model="asyncSelected" uib-typeahead="loc for loc in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" typeahead-on-select="main.addLocationIfNotPresent(asyncSelected); asyncSelected = '';" class="form-control">
 					    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 					    <div ng-show="noResults">
 					      <i class="glyphicon glyphicon-remove"></i> No Results Found
-					    </div>
-					    <input type="button" class="btn btn-success" id="btnEnterLocation" value="Add Location" ng-click="main.addLocationIfNotPresent(asyncSelected)" />
+					    </div>					   
 				    </form>
 			    </div>
 		  	</div>

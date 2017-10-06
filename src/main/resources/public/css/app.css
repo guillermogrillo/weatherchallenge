@@ -96,5 +96,8 @@ span .glyphicon {
     color: rgb(246, 247, 246);
 }
 
-
+.progress-wrapper {
+        height: 450px;
+        padding: 10% 0 !important;
+    }
 

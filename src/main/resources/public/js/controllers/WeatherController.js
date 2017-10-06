@@ -8,10 +8,9 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
     $scope.tab_content = false;
     $scope.resourceId = $routeParams.param; 
     $scope.locations = [];   
-    $scope.selectedLocation = {};
-
-    main.newBoardInfo = {};
-    main.selectedBoard = {};
+    $scope.newBoardDescription = '';
+    $scope.selectedLocation = {};   
+    $scope.loading=false;
 
     var weatherLogoMap = {
         0 : "wi wi-tornado",
@@ -72,28 +71,29 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
             case 'logout':
                 $scope.tab_content = true;                
                 break;                
-            case 'boards':
+            case 'boards':            	
             	main.getBoards();              
                 break;
             case 'new_board':                
-                $scope.tab_content = true;
+                $scope.tab_content = true;                
                 break;
-            case 'update_board':
-                main.newBoardInfo.description = main.selectedBoard.description;
-                main.newBoardInfo.locations = main.selectedBoard.locations;
-                $scope.tab_content = true;
+            case 'update_board':                
+                $scope.tab_content = true;                
                 break;                    
         }       
     }
 
     main.getBoards = function() {
         $scope.boards = [];
+        $scope.loading = true;
     	$http.get('/api/'+ localStorage.getItem('userId') +'/boards/').success(function(result) {    		
             $scope.boards = result.data;
-            $scope.tab_content = true;            
+            $scope.tab_content = true;
+            $scope.loading = false;
         }).error(function (data, status) {        	
             $scope.boards = [];
             $scope.tab_content = false;
+            $scope.loading = false;
         });
     }
 
@@ -114,7 +114,7 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
 
     main.postBoard = function() {
         var boardData = {
-            "description": main.newBoardInfo.description,            
+            "description": $scope.newboardDescription,            
             "woeids" : parseListWoeids($scope.locations),
         }
         $http.post('api/'+ localStorage.getItem('userId') +'/boards', boardData).success(function(response) {
@@ -144,11 +144,17 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
     }
 
     main.addNewBoard = function() {    	    	
-    	$location.path("/boards/newboard");
+        $scope.newBoardDescription = '';
+        $scope.locations = [];
+        $location.path("/boards/newboard");
+    	//main.init('new_board');
     }
 
     main.editBoard = function(board) {             
-        $location.path("/boards/newboard");
+        $scope.newBoardDescription = board.description;
+        $scope.locations = board.locations;
+        $location.path("/boards/updateboard");
+        //main.init('update_board');
     }
 
     main.logout = function() {            
@@ -211,5 +217,13 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         }
         return indexOf.call(this, needle) > -1;
     };
+    
+    main.setBoardInfo = function(boardInfo) {
+		WeatherService.setBoardInfo(boardInfo);
+	}
+	
+	main.getBoardInfo = function() {
+		return WeatherService.getBoardInfo();
+	}
 
 }]);

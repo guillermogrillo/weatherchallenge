@@ -34,7 +34,9 @@ public class YahooService {
     public LocationDto findWeatherByWoeid(String woeid) {
     	LocationDto location = null;
         try {
+        	logger.info("getForecast for "+woeid);
             Channel channel = yahooWeatherService.getForecast(woeid, DegreeUnit.CELSIUS);
+            logger.info("Response: " + channel);
             location = new LocationDto();
             location.setCity(channel.getLocation().getCity());
             location.setCountry(channel.getLocation().getCountry());
