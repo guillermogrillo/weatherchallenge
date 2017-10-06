@@ -1,26 +1,36 @@
 
 <div>
 	<div class="container content">
-		<div ng-show="login.successfullRegister">
-			<p>User registered successfully</p>
-		</div>
-		<div ng-show="login.unsuccessfullRegister">
-			<p>The user is already registered</p>
-		</div>
-		<form>
-			<div class="form-group">
-				<label for="username">Username</label> <input type="text"
-					id="username" placeholder="username..."
-					ng-model="login.user.username" ng-required="true" />
+		<div class="form">
+			<div ng-show="login.successfullRegister">
+				<p>User registered successfully</p>
 			</div>
-			<div class="form-group">
-				<label for="password">Password</label> <input type="password"
-					id="password" placeholder="password..."
-					ng-model="login.user.password" ng-required="true" />
+			<div ng-show="login.unsuccessfullRegister">
+				<p>The user is already registered</p>
 			</div>
-			<button type="submit" class="btn btn-success btn-lg"
-				ng-click="login.register()">Register</button>
-		</form>
+			<form>
+				<div class="form-group">
+					<label for="username" class="cols-sm-2 control-label">Username</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+							<input type="text" class="form-control" id="username" placeholder="Enter your username" ng-model="login.user.username" ng-required="true"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="cols-sm-2 control-label">Password</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
+							<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" ng-model="login.user.password"  ng-required="true"/>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success btn-lg"
+					ng-click="login.register()">Register</button>
+			</form>
+		</div>
 	</div>
 </div>
 

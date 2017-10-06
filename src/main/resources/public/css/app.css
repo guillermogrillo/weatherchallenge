@@ -3,7 +3,11 @@
 */
 
 body {
-    font-family: 'Lato';    
+    font-family: 'Lato';
+    background-image: url(/images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;     
 }
 
 .content {
@@ -97,7 +101,33 @@ span .glyphicon {
 }
 
 .progress-wrapper {
-        height: 450px;
-        padding: 10% 0 !important;
-    }
+    height: 450px;
+    padding: 10% 0 !important;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  border-radius: 5px;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(242, 239, 238, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form .page{
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  border-radius: 5px;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding-top: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+
 
