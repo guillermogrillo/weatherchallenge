@@ -8,8 +8,7 @@
                 <div class="boards-panel-heading" ng-repeat="b in boards">
                     <div class="panel-heading">
                         <h4 class="panel-title">          
-                            <span>{{b.description}}</span>
-                            <span>(Last updated: {{b.lastUpdate}})</span>                        
+                            <span>{{b.description}}</span>                                                
                             <div class="pull-right">
                                 <span class="glyphicon glyphicon-plus" title="Add locations to this board" aria-hidden="true" ng-click="main.editBoard(b)"></span>
                                 <span class="glyphicon glyphicon-zoom-in" title="Check this board info" aria-hidden="true" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"></span>
@@ -38,15 +37,15 @@
                                                         <div class="forecast">
                                                             <div class="row">
                                                                 <div class="col-sm-4">
-                                                                    {{l.weather.condition.date}}
+                                                                    {{l.weather.date}}
                                                                 </div>
                                                                 <div class="col-sm-8">
-                                                                    <div class="row"><i ng-class="main.getWeatherLogo(l.weather.condition.code)"></i></div>
+                                                                    <div class="row"><i ng-class="main.getWeatherLogo(l.weather.code)"></i></div>
                                                                     <div class="row">{{l.weather.description}}</div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="row">Now: {{l.weather.condition.temp}}</div>
+                                                                <div class="row">Now: {{l.weather.temperature}}</div>
                                                                 <div class="row">Min: {{l.weather.forecasts[0].low}}</div>
                                                                 <div class="row">Max: {{l.weather.forecasts[0].high}}</div>
                                                             </div>

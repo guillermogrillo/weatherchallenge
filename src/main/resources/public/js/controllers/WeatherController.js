@@ -1,4 +1,4 @@
-weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$location', '$route', '$routeParams', function($scope, $http, $timeout, $location, $route, $routeParams) {
+weatherApp.controller('WeatherController', ['$scope', '$http', '$interval', '$location', '$route', '$routeParams', function($scope, $http, $interval, $location, $route, $routeParams) {
 
     $http.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -62,6 +62,12 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         46 : "wi wi-snow",
         47 : "wi wi-storm-showers"
     }
+    
+    $scope.callAtInterval = function() {
+    	main.getBoards();
+    }
+
+    $interval( function(){ $scope.callAtInterval(); }, 60000);
     
     main.init = function(resource) {
     	switch(resource) {
@@ -147,14 +153,12 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$timeout', '$loc
         $scope.newBoardDescription = '';
         $scope.locations = [];
         $location.path("/boards/newboard");
-    	//main.init('new_board');
     }
 
     main.editBoard = function(board) {             
         $scope.newBoardDescription = board.description;
         $scope.locations = board.locations;
         $location.path("/boards/updateboard");
-        //main.init('update_board');
     }
 
     main.logout = function() {            

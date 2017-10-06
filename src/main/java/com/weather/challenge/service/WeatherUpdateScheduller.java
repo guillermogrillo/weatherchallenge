@@ -14,7 +14,7 @@ public class WeatherUpdateScheduller {
 	@Autowired
 	private WeatherService weatherService;
 	
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 600000)
     public void reportCurrentTime() {
     	logger.info("Updating weather info");
 		weatherService.updateWeatherInfo();

@@ -2,12 +2,7 @@ package com.weather.challenge.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,14 +103,13 @@ public class WeatherService {
 		weatherDto.setCode(weather.getCode());
 		weatherDto.setDate(weather.getDate());
 		weatherDto.setDescription(weather.getDescription());
-		weatherDto.setWoeid(weather.getWoeid());
 		weatherDto.setLastUpdateDateTime(weather.getLastUpdateDateTime());
 		weatherDto.setTemperature(weather.getTemperature());
 		List<ForecastDto> forecastDtos = new ArrayList<>();
 		if (!weather.getForecasts().isEmpty()) {
 			ForecastDto forecastDto = null;
 			for (Forecast forecast : weather.getForecasts()) {
-				mapForecastToForecastDto(forecast);
+				forecastDto = mapForecastToForecastDto(forecast);
 				forecastDtos.add(forecastDto);
 			}
 		}
@@ -137,33 +131,6 @@ public class WeatherService {
 				yahooService.findLocationAndWeatherByWoeid(savedBoard, woeid);
 			}
 		}
-	}
-
-	private Weather mapWeatherDtoToWeather(WeatherDto weatherDto) {
-		Weather weather = new Weather();
-		weather.setCode(weatherDto.getCode());
-		weather.setDate(weatherDto.getDate());
-		weather.setDescription(weatherDto.getDescription());
-		weather.setTemperature(weatherDto.getTemperature());
-		weather.setWoeid(weatherDto.getWoeid());
-		weather.setLastUpdateDateTime(weatherDto.getLastUpdateDateTime());
-		List<Forecast> forecasts = new ArrayList<>();
-		for (ForecastDto forecastDto : weatherDto.getForecasts()) {
-			Forecast forecast = mapForecastDtoToForecast(forecastDto);
-			forecasts.add(forecast);
-		}
-		weather.setForecasts(forecasts);
-		return weather;
-	}
-
-	private Forecast mapForecastDtoToForecast(ForecastDto forecastDto) {
-		Forecast forecast = new Forecast();
-		forecast.setCode(forecastDto.getCode());
-		forecast.setDate(forecastDto.getDate());
-		forecast.setDescription(forecastDto.getDescription());
-		forecast.setHigh(forecastDto.getHigh());
-		forecast.setLow(forecastDto.getLow());
-		return forecast;
 	}
 
 	private LocationDto mapLocationToLocationDto(Location location) {

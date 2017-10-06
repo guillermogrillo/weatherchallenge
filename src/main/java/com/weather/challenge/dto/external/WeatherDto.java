@@ -9,7 +9,6 @@ public class WeatherDto {
 	private Integer temperature;
 	private String date;
 	private Integer code;
-	private String woeid;
 	private String lastUpdateDateTime;
 	private List<ForecastDto> forecasts;
 
@@ -55,14 +54,6 @@ public class WeatherDto {
 
 	public void setForecasts(List<ForecastDto> forecasts) {
 		this.forecasts = forecasts;
-	}
-
-	public String getWoeid() {
-		return woeid;
-	}
-
-	public void setWoeid(String woeid) {
-		this.woeid = woeid;
 	}
 
 	public String getLastUpdateDateTime() {

@@ -1,5 +1,6 @@
 package com.weather.challenge.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -56,7 +57,7 @@ public class WeatherController extends GenericController {
 		String response = createResponse(WeatherServiceCode.OK, userDto);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
-
+	
 	@GetMapping("/{userId}/boards")
 	public ResponseEntity<String> getBoards(@PathVariable final String userId) {
 		logger.info("getBoards request for user " + userId);
