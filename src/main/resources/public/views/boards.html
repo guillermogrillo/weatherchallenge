@@ -1,84 +1,24 @@
 <div class="container">
-    <div class="row container">
-        <span class="glyphicon glyphicon-plus" title="Add new board" aria-hidden="true" ng-click="main.addNewBoard()"></span>
-    </div>
-    <div class="row container">
-        <div class="panel-group" id="accordion">                            
-            <div class="panel panel-default">
-                <div class="boards-panel-heading" ng-repeat="b in boards">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">          
-                            <span>{{b.description}}</span>                                                
-                            <div class="pull-right">
-                                <span class="glyphicon glyphicon-plus" title="Add locations to this board" aria-hidden="true" ng-click="main.editBoard(b)"></span>
-                                <span class="glyphicon glyphicon-zoom-in" title="Check this board info" aria-hidden="true" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"></span>
-                                <span class="glyphicon glyphicon-trash" title="Delete this board" aria-hidden="true" ng-click="main.deleteBoard(b.id)"></span>
-                            </div>                            
-                        </h4>
+    <div ng-repeat="b in boards">
+        <div class="container">
+        	<div class="panel panel-success">        
+                <div class="panel-heading">{{b.description}}
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-plus" title="Add locations to this board" aria-hidden="true" ng-click="main.editBoard(b)"></span>
+                        <span class="glyphicon glyphicon-zoom-in" title="Check this board info" aria-hidden="true" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"></span>
+                        <span class="glyphicon glyphicon-trash" title="Delete this board" aria-hidden="true" ng-click="main.deleteBoard(b.id)"></span>
                     </div>
-                    <div id="{{b.id}}" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="board-panel-heading" ng-repeat="l in b.locations">
-                                <div class="panel-body">                                    
-                                    <div class="panel-heading">
-                                        <div class="panel-title">
-                                            <span class="glyphicon glyphicon-map-marker">{{l.city}},{{l.country}}</span>                                            
-                                            <div class="pull-right">                                                
-                                                <span class="glyphicon glyphicon-chevron-down" title="Check the forecast for this location"data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}-{{$index}}"></span>                                        
-                                                <span class="glyphicon glyphicon-trash" title="Delete this location from the board" aria-hidden="true" ng-click="main.deleteLocationFromBoard(b.id,l.woeid)"></span>
-                                            </div>
-                                        </div>                                                                                    
-                                    </div>    
-                                    <div id="{{b.id}}-{{$index}}" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <div class="forecast">
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    {{l.weather.date}}
-                                                                </div>
-                                                                <div class="col-sm-8">
-                                                                    <div class="row"><i ng-class="main.getWeatherLogo(l.weather.code)"></i></div>
-                                                                    <div class="row">{{l.weather.description}}</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="row">Now: {{l.weather.temperature}}</div>
-                                                                <div class="row">Min: {{l.weather.forecasts[0].low}}</div>
-                                                                <div class="row">Max: {{l.weather.forecasts[0].high}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <div class="forecast" ng-repeat="f in l.weather.forecasts" ng-if="$index > 0">
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    {{f.date}}
-                                                                </div>
-                                                                <div class="col-sm-8">
-                                                                    <div class="row"><i ng-class="main.getWeatherLogo(f.code)"></i></div>
-                                                                    <div class="row">{{f.description}}</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="row">Min: {{f.low}}</div>
-                                                                <div class="row">Max: {{f.high}}</div>
-                                                            </div>    
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                        
-                                </div>    
-                            </div>    
-                        </div>
-                    </div>    
                 </div>
-            </div>
+            </div>            
+            <!--ul class="list-group">
+                <li class="list-group-item" ng-repeat="l in b.locations">
+                    <span class="glyphicon glyphicon-map-marker">{{l.city}},{{l.country}}</span>
+                    <div class="pull-right">                                                
+                        <span class="glyphicon glyphicon-chevron-down" title="Check the forecast for this location"data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}-{{$index}}"></span>                                        
+                        <span class="glyphicon glyphicon-trash" title="Delete this location from the board" aria-hidden="true" ng-click="main.deleteLocationFromBoard(b.id,l.woeid)"></span>
+                    </div>
+                </li>            
+            </ul-->        
         </div>
     </div>
 </div>

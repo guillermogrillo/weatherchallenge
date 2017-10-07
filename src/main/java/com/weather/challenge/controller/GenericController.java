@@ -17,7 +17,6 @@ public class GenericController {
 
 	public <T> String createResponse(WeatherServiceCode code, T data) {
 		SimpleModule module = new SimpleModule();
-
 		ObjectMapper oMapper = new ObjectMapper();
 		oMapper.registerModule(module);
 		BaseResponse<T> respuesta = new BaseResponse<T>(code.getResult(), code.getDescription());

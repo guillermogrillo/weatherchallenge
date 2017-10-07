@@ -45,8 +45,9 @@ public class WeatherService {
 		List<Board> boards = boardRepository.getByUserId(user.getId());
 		List<BoardDto> retBoards = new ArrayList<BoardDto>();
 		if (!boards.isEmpty()) {
-			BoardDto boardDto = new BoardDto();
+			BoardDto boardDto = null; 
 			for (Board board : boards) {
+				boardDto = new BoardDto();
 				boardDto.setId(board.getId());
 				boardDto.setDescription(board.getDescription());
 				List<Location> boardLocations = locationRepository.getByBoardsId(board.getId());
@@ -59,32 +60,6 @@ public class WeatherService {
 				retBoards.add(boardDto);
 			}
 		}
-		/*
-		if (!boards.isEmpty()) {
-			BoardDto boardDto = null;
-			for (Board board : boards) {
-				boardDto = new BoardDto();
-				boardDto.setId(board.getId());
-				boardDto.setDescription(board.getDescription());
-				List<LocationDto> locationDtos = new ArrayList<>();
-				if (!board.getLocations().isEmpty()) {
-					LocationDto locationDto = null;
-					for (Location location : board.getLocations()) {
-						locationDto = new LocationDto();
-						locationDto.setCity(location.getCity());
-						locationDto.setCountry(location.getCountry());
-						locationDto.setWoeid(location.getWoeid());
-						WeatherDto weatherDto = mapWeatherToWeatherDto(location.getWeather());
-						locationDto.setWeather(weatherDto);
-						locationDtos.add(locationDto);
-					}
-					boardDto.setLocations(locationDtos);
-				}
-			}
-			retBoards.add(boardDto);
-		}
-		* 
-		 */
 		return retBoards;
 	}
 
@@ -146,14 +121,27 @@ public class WeatherService {
 	}
 
 	public void deleteBoard(String id) {
-		boardRepository.delete(id);
+		Board board = boardRepository.findOne(id);
+		List<Location> locationsWithTheBoard = locationRepository.getByBoardsId(id);
+		for (Location location : locationsWithTheBoard) {
+			location.getBoards().removeIf(b->b.getId().equals(id));
+		}
+		boardRepository.delete(board);
 	}
 
 	public void deleteLocationFromBoard(String boardId, String woeid) {
 		Optional<Location> oldLocation = locationRepository.findByWoeid(woeid);
 		if(oldLocation.isPresent()){
 			oldLocation.get().getBoards().removeIf(b->b.getId().equals(boardId));
-			locationRepository.save(oldLocation.get());
+			if(oldLocation.get().getBoards().isEmpty()){
+				locationRepository.delete(oldLocation.get());
+				Optional<Weather> weatherWithoutLocation = weatherRepository.findByWoeid(woeid);
+				if(weatherWithoutLocation.isPresent()){
+					weatherRepository.delete(weatherWithoutLocation.get());
+				}
+			}else{
+				locationRepository.save(oldLocation.get());
+			}
 		}
 	}
 

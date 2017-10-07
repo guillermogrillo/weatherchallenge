@@ -64,7 +64,7 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$interval', '$lo
     }
     
     $scope.callAtInterval = function() {
-    	main.getBoards();
+//    	main.getBoards();
     }
 
     $interval( function(){ $scope.callAtInterval(); }, 60000);
