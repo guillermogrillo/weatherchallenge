@@ -1,4 +1,4 @@
-weatherApp.controller('WeatherController', ['$scope', '$http', '$interval', '$location', '$route', '$routeParams', function($scope, $http, $interval, $location, $route, $routeParams) {
+/*weatherApp.controller('WeatherController', ['$scope', '$http', '$interval', '$location', '$route', '$routeParams', function($scope, $http, $interval, $location, $route, $routeParams) {
 
     $http.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -229,5 +229,33 @@ weatherApp.controller('WeatherController', ['$scope', '$http', '$interval', '$lo
 	main.getBoardInfo = function() {
 		return WeatherService.getBoardInfo();
 	}
+
+}]);*/
+
+weatherApp.controller('WeatherController', ['$scope','$http', function($scope,$http) {
+
+    var main = this;
+    $scope.boards=[];    
+    $scope.pageClass = 'page-boards';
+
+    main.init = function() {
+        main.getBoards();                   
+    }
+
+    main.getBoards = function() {
+        $scope.boards = [];
+        $scope.loading = true;
+        $http.get('/api/'+ localStorage.getItem('userId') +'/boards/').success(function(result) {           
+            $scope.boards = result.data;
+            $scope.tab_content = true;
+            $scope.loading = false;
+        }).error(function (data, status) {          
+            $scope.boards = [];
+            $scope.tab_content = false;
+            $scope.loading = false;
+        });
+    }
+
+    main.init();
 
 }]);

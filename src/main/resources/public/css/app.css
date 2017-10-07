@@ -1,133 +1,44 @@
-/*
-	Para contenido en general
-*/
-
-body {
-    font-family: 'Lato';
-    background-image: url(/images/background.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;     
+.page        {
+    bottom:0; 
+    padding-top:50px;
+    position:absolute;     
+    top:0;  
+    width:100%; 
 }
 
-.content {
-    padding-top: 20%;
-    text-align: center;
+.page h1{
+    font-size:60px; 
+}
+.page a {
+    margin-top:20px;
+    margin-bottom:20px; 
+  }
+.page span { 
+    font-size: 2em; 
+    text-align: left;
+    margin-left: 30px;
+    font-weight: 900px;
 }
 
-.forecast {
-    width: 23%;
-    float: left;
-    margin: 1%;
-    border: 1px solid white;
-    text-align: center;
+.boards-row {
+    border: 1px;
+    background-color: rgba(73, 242, 73, 0.50);
+    margin-top: 20px;
     border-radius: 4px;
-    background-color: rgba(0,100,255,0.2);    
+    vertical-align: middle;
 }
 
-.boards-panel-heading {    
-    border-radius: 3px;
+.boards-row a:link, a:visited {    
+    text-decoration: none;
+    cursor: auto;
 }
 
-.board-panel-heading {
-    border-radius: 3px;
+.boards-row:hover {
+    background-color: rgba(73, 242, 73, 0.80);
 }
 
-body .weather-icon-size {
-    font-size: 40px;
-}
-
-div .glyphicon {
-    pointer-events: all;
-}
-
-span .glyphicon {
-    pointer-events: all;
-}
-
-#location {
-    margin-top: 25%;
-}
-
-#main-wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-#weather-header {    
-    font-size: 1.2em;
-    font-family: 'Pacifico', cursive;
-    background-color: rgb(45, 114, 38);
-    color: rgb(246, 247, 246);
-    padding-left: 20px;
-    padding-right: 20px;
-    height: 50px;
-    line-height: 50px;   
-}
-
-#weather-header-actions {    
-    font-size: 1.2em;
-    font-family: 'Lato';'
-    background-color: rgb(45, 114, 38);
-    color: rgb(246, 247, 246);
-    padding-left: 20px;
-    padding-right: 20px;
-    height: 50px;
-    line-height: 50px;   
-}
-
-.page-footer .weather-footer {
-    text-align: center;
-    line-height: 50px;    
-    font-family: 'Pacifico', cursive;
-    font-size: 1.2em;    
-    background-color: rgb(45, 114, 38);
-    color: rgb(246, 247, 246);
-    height: 50px;
-    border-radius: 2px;
-}
-
-.new-board-buttons {
-    margin-right: 30px;
-}
-
-.header-button {
-    font-family: 'Lato';'
-}
-
-.navbar-default .navbar-nav .header-button {
-    color: rgb(246, 247, 246);
-}
-
-.progress-wrapper {
-    height: 450px;
-    padding: 10% 0 !important;
-}
-
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  border-radius: 5px;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(242, 239, 238, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-
-.form .page{
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  border-radius: 5px;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding-top: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-
-
-
+/* PAGES (specific colors for each page)
+============================================================================= */
+/*.page-boards      { background:#00D0BC; color:#00907c; }
+.page-board     { background:#E59400; color:#a55400; }
+.page-location   { background:#ffa6bb; color:#9e0000; }*/

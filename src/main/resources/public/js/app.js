@@ -1,41 +1,26 @@
-'use strict';
+var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngAnimate']);
 
-var weatherApp = angular.module('weatherApp',['ngRoute','ngTable','ui.bootstrap']);
-
-weatherApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+weatherApp.config(function($routeProvider) {
 
     $routeProvider
-    	.when("/", {
-    		templateUrl: "views/landing.html",
-    		controller: "WeatherController as main",
-    		resource: "landing"
-    	})
-        .when("/login", {            
-            templateUrl: "views/login.html",
-            controller: "LoginController as login"
-        })        
-        .when("/register", {
-            templateUrl: "views/register.html",
-            controller: "LoginController as login"
-        })
-        .when("/boards", {
-            templateUrl: "views/home.html",
-            contentUrl: "views/boards.html",
-            controller: "WeatherController as main",
-            resource: "boards"
-        })
-        .when("/boards/updateboard", {
-            templateUrl: "views/home.html",
-            contentUrl: "views/newboard.html",
-            controller: "WeatherController as main",
-            resource: "update_board"
-        }) 
-        .when("/boards/newboard", {
-            templateUrl: "views/home.html",
-            contentUrl: "views/newboard.html",
-            controller: "WeatherController as main",
-            resource: "new_board"
-        })                        
-    ;
-}]);
 
+        .when('/boards', {
+            templateUrl: 'views/boards.html',
+            controller: 'WeatherController as main'
+        })
+
+        .when('/board', {
+            templateUrl: 'views/board.html',
+            controller: 'BoardController as boardCtrl'
+        })
+
+        .when('/location', {
+            templateUrl: 'views/location.html',
+            controller: 'LocationsController as locationCtrl'
+        });
+
+});
+
+weatherApp.controller('LocationsController', function($scope) {
+    $scope.pageClass = 'Here you can see the weather forecast of the selected location';
+});
