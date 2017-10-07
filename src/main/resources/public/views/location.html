@@ -1,4 +1,55 @@
-<h2>Location</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="forecast-row">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">{{location.weather.date}}</div>    
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row"><i ng-class="locationCtrl.getWeatherLogo(location.weather.code)" title="{{location.weather.description}}"></i></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row"><i class="wi wi-thermometer"></i>Now: {{location.weather.temperature}}</div>
+                    </div>  
+                    <div class="col-sm-4">
+                        <div class="row"><span class="minTemp">MIN<span> {{location.weather.forecasts[0].low}}</div>
+                        <div class="row"><span class="maxTemp">MAX<span> {{location.weather.forecasts[0].high}}</div>    
+                    </div>  
+                </div>
+            </div>    
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-4" ng-repeat="f in location.weather.forecasts"  ng-if="$index > 0">
+                    <div class="forecast-row">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">{{f.date}}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row"><i ng-class="locationCtrl.getWeatherLogo(f.code)" title="{{f.description}}"></i></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="row"><span class="minTemp">MIN<span> {{f.low}}</div>
+                            <div class="row"><span class="maxTemp">MAX<span> {{f.high}}</div>
+                        </div>
+                    </div>    
+                </div>            
+            </div>
+        </div>
+    </div>    
+</div>
+<!--
+date;
+low;
+high;
+description;
+code;
+-->
 
-<a href="#boards" class="btn btn-success btn-lg">Boards</a>
-<a href="#board" class="btn btn-danger btn-lg">Board</a>

@@ -18,6 +18,8 @@
     text-align: left;
     margin-left: 30px;
     font-weight: 900px;
+    padding-top: 15px;
+    cursor: default;
 }
 
 .boards-row {
@@ -28,17 +30,67 @@
     vertical-align: middle;
 }
 
-.boards-row a:link, a:visited {    
+.board-row .content {
+    margin-top: 30px;
+}
+
+.boards-button-row  a:link {    
     text-decoration: none;
     cursor: auto;
+    color: black;
+}
+
+.boards-button-row a:visited {
+    text-decoration: none;
+    cursor: auto;
+    color: black; 
+}
+
+.boards-row a:link {    
+    text-decoration: none;
+    cursor: auto;
+    color: black;
+}
+
+.boards-row a:visited {
+    text-decoration: none;
+    cursor: auto;
+    color: black; 
 }
 
 .boards-row:hover {
     background-color: rgba(73, 242, 73, 0.80);
 }
 
-/* PAGES (specific colors for each page)
-============================================================================= */
-/*.page-boards      { background:#00D0BC; color:#00907c; }
-.page-board     { background:#E59400; color:#a55400; }
-.page-location   { background:#ffa6bb; color:#9e0000; }*/
+.panel-body {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.today-row {
+    float: left;
+    margin: 1%;
+    border: 1px solid white;
+    text-align: center;
+    border-radius: 4px;
+    background-color: rgba(89, 165, 165, 0.4);    
+}
+
+.forecast-row {    
+    float: left;
+    margin: 1%;
+    border: 1px solid white;
+    text-align: center;
+    border-radius: 4px;
+    background-color: rgba(89, 165, 165, 0.4);    
+}
+
+.page span .minTemp {
+    font-size: 1em; 
+    color: rgb(63, 127, 191); 
+}
+
+.page span .maxTemp {
+    font-size: 1em; 
+    color: rgb(240, 14, 123);
+}

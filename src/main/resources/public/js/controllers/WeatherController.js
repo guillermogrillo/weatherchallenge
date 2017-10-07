@@ -232,28 +232,31 @@
 
 }]);*/
 
-weatherApp.controller('WeatherController', ['$scope','$http', function($scope,$http) {
+weatherApp.controller('WeatherController', ['$scope','$location','WeatherService', function($scope,$location,WeatherService) {
 
     var main = this;
-    $scope.boards=[];    
-    $scope.pageClass = 'page-boards';
-
-    main.init = function() {
-        main.getBoards();                   
-    }
 
     main.getBoards = function() {
-        $scope.boards = [];
-        $scope.loading = true;
-        $http.get('/api/'+ localStorage.getItem('userId') +'/boards/').success(function(result) {           
-            $scope.boards = result.data;
-            $scope.tab_content = true;
-            $scope.loading = false;
-        }).error(function (data, status) {          
-            $scope.boards = [];
-            $scope.tab_content = false;
-            $scope.loading = false;
-        });
+        $scope.boards = null;
+        WeatherService.getBoards()
+            .then(
+                function(result) {          
+                    $scope.boards = result.data.data;
+                    console.log('get Boards ok');
+                }, 
+                function(error) {
+                    console.log('Error getting the boards');
+                }
+            );
+    } 
+
+    main.init = function() {
+        main.getBoards();
+    }
+
+    $scope.checkBoardDetail = function(board){
+        WeatherService.setSelectedBoard(board);
+        $location.path("/board");
     }
 
     main.init();

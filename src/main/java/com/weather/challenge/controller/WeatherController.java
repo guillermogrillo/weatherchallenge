@@ -1,6 +1,5 @@
 package com.weather.challenge.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
