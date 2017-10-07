@@ -42,13 +42,5 @@ angular.module('weatherApp').factory('WeatherService', ['$http','$q', function (
 		return weatherService.selectedBoard;
 	}
 
-	weatherService.setSelectedLocation = function (location) {
-		weatherService.selectedLocation = location;
-	}
-
-	weatherService.getSelectedLocation = function() {
-		return weatherService.selectedLocation;
-	}
-
   	return weatherService;
 }]);
