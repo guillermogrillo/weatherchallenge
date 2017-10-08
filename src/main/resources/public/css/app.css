@@ -167,15 +167,37 @@ body {
     background-color: rgba(89, 165, 165, 0.4);    
 }*/
 
-.forecast-row {
-    border: 1px solid white;
-    background-color: rgba(89, 165, 165);  
-    position: relative;
-    float: left;   
+.forecast {
+    background-color: rgba(89, 165, 165);    
     border-radius: 4px;
-    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2%;
 }
 
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.03); }
 
+.row-centered {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px 0;
+}      
+
+.upper-forecast {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.lower-forecast {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}

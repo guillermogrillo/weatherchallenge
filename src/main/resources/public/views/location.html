@@ -1,29 +1,48 @@
-<div class="page">
+<!--div class="page">
     <div class="container">
         <div class="row">                
-            <div class="col-sm-3 forecast-row" ng-repeat="f in location.weather.forecasts">            
-                <div class="row">
+            <div class="col-sm-3" ng-repeat="f in location.weather.forecasts">            
+                <div class="row forecast-row">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="row"><span>{{f.date}}</span></div>
                         </div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-8">
                             <div class="row"><span><i ng-class="locationCtrl.getWeatherLogo(f.code)" title="{{f.description}}"></i></span></div>
                         </div>
                     </div>
                     <div class="row" ng-if="$index == 0">
                         <hr>    
                         <div class="col-sm-6">
-                            <div class="row"><span class="tempNow"><i class="wi wi-thermometer"></i>{{location.weather.temperature}}</span></div>
+                            <div class="row"><span><i ng-class="wi wi-thermometer"></i>{{location.weather.temperature}}</span></div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="row"><span class="tempMin">MIN {{f.low}}</span></div>
-                            <div class="row"><span class="tempMax">MAX {{f.high}}</span></div>    
+                            <div class="row"><span>MIN {{f.low}}</span></div>
+                            <div class="row"><span>MAX {{f.high}}</span></div>    
                         </div>
                     </div>
                 </div>                        
             </div>            
         </div>    
     </div>
-</div>    
+</div-->    
+
+<div class="page">
+    <div class="container">
+        <div class="row row-centered">
+            <div class="col-sm-3 forecast" ng-repeat="f in location.weather.forecasts">
+                <div class="upper-forecast">
+                    <h2>{{f.date}}</h2>
+                    <h1><i ng-class="locationCtrl.getWeatherLogo(f.code)" title="{{f.description}}"></i></h1>
+                </div>
+                <div class="lower-forecast">
+                    <h2><i class="wi wi-thermometer"></i></h2><span>{{location.weather.temperature}}</span>
+                    <span>MIN {{f.low}}</span>
+                    <span>MAX {{f.high}}</span>    
+                </div>
+                    
+            </div>    
+        </div>        
+    </div>
+</div>
 

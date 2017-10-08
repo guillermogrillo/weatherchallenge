@@ -90,7 +90,7 @@ public class YahooService {
 
 	private String parseDate(String date) {
 		SimpleDateFormat formatnow = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZ yyyy", Locale.ENGLISH);
-		SimpleDateFormat formatneeded = new SimpleDateFormat("EEE d MMM", Locale.US);
+		SimpleDateFormat formatneeded = new SimpleDateFormat("EEE dd MMM", Locale.US);
 		try {
 			Date date1 = formatnow.parse(date);
 			String date2 = formatneeded.format(date1);
