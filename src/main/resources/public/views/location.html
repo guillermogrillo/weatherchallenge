@@ -1,20 +1,20 @@
 <div class="page">
     <div class="container">
         <div class="row">                
-            <div class="col-sm-3" ng-repeat="f in location.weather.forecasts">            
-                <div class="row forecast-row">
+            <div class="col-sm-3 forecast-row" ng-repeat="f in location.weather.forecasts">            
+                <div class="row">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <div class="row"><span>{{f.date}}</span></div>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-10">
                             <div class="row"><span><i ng-class="locationCtrl.getWeatherLogo(f.code)" title="{{f.description}}"></i></span></div>
                         </div>
                     </div>
                     <div class="row" ng-if="$index == 0">
                         <hr>    
                         <div class="col-sm-6">
-                            <div class="row"><span class="tempNow">{{location.weather.temperature}}</span></div>
+                            <div class="row"><span class="tempNow"><i class="wi wi-thermometer"></i>{{location.weather.temperature}}</span></div>
                         </div>
                         <div class="col-sm-6">
                             <div class="row"><span class="tempMin">MIN {{f.low}}</span></div>
