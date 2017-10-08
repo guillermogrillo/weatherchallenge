@@ -15,7 +15,6 @@ weatherApp.controller('LoginController', ['$scope', '$http', '$timeout', '$locat
             "password": login.user.password
         }
 
-        // Login an user
         $http.post('api/login/', user_credentials).success(function(response) {
             if(response.result === 0) {
                 login.loggedIn = true;

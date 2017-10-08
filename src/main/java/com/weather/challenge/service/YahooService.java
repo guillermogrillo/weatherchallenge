@@ -3,6 +3,7 @@ package com.weather.challenge.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,8 @@ public class YahooService {
 	
 	@Autowired
 	private LocationRepository locationRepository;
+	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 	public YahooService() throws Exception {
 		yahooWeatherService = new YahooWeatherService();
@@ -67,7 +70,7 @@ public class YahooService {
 		weather.setDescription(channel.getItem().getCondition().getText());
 		weather.setTemperature(channel.getItem().getCondition().getTemp());
 		weather.setWoeid(location.getWoeid());
-		weather.setLastUpdateDateTime(LocalDateTime.now().toString());
+		weather.setLastUpdateDateTime(LocalDateTime.now().format(formatter).toString());
 		List<com.github.fedy2.weather.data.Forecast> forecasts = channel.getItem().getForecasts().stream().limit(4)
 				.collect(Collectors.toList());
 		List<com.weather.challenge.entity.Forecast> forecastList = new ArrayList<>();

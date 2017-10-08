@@ -1,5 +1,6 @@
 package com.weather.challenge.service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class WeatherService {
 
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	public List<BoardDto> getBoards(UserDto user) {
 		List<Board> boards = boardRepository.getByUserId(user.getId());
 		List<BoardDto> retBoards = new ArrayList<BoardDto>();
