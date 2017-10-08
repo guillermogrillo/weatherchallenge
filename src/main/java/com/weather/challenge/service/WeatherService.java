@@ -95,6 +95,9 @@ public class WeatherService {
 	public void saveBoard(NewBoardDto dto, String userId) {
 		Board board = new Board();
 		User user = userRepository.findOne(userId);
+		if(!"".equals(dto.getId())){
+			board.setId(dto.getId());
+		}
 		board.setUser(user);
 		board.setDescription(dto.getDescription());
 		Board savedBoard = boardRepository.save(board);

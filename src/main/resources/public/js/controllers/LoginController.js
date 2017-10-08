@@ -50,12 +50,19 @@ weatherApp.controller('LoginController', ['$scope', '$http', '$timeout', '$locat
         }
        
        $http.post('api/register/', user_credentials).success(function(data) {
-            login.loggedIn = true;
-            login.successfullRegister = true;
-            login.unsuccessfullRegister = false;
-            login.invalidInput = false;
-            login.serverError = false;            
-            $location.path("/");
+            if(data.result==0){
+                login.loggedIn = true;
+                login.successfullRegister = true;
+                login.unsuccessfullRegister = false;
+                login.invalidInput = false;
+                login.serverError = false;            
+                $location.path("/");
+            }else{
+                login.invalidInput = false;
+                login.successfullRegister = false;
+                login.unsuccessfullRegister = true;
+                login.loggedIn = false;    
+            }
         }).error(function (data, status) {
             login.invalidInput = false;
            login.successfullRegister = false;

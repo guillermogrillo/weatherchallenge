@@ -1,10 +1,14 @@
-var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngAnimate']);
+var weatherApp = angular.module('weatherApp', ['ngRoute', 'ngAnimate','ui.bootstrap']);
 
 weatherApp.config(function($routeProvider) {
     $routeProvider
         .when('/boards', {
             templateUrl: 'views/boards.html',
             controller: 'WeatherController as main'
+        })
+        .when('/boards/new', {
+            templateUrl: 'views/newboard.html',
+            controller: 'NewBoardController as newBoardCtrl'
         })
         .when('/board', {
             templateUrl: 'views/board.html',

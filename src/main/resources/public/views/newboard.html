@@ -1,40 +1,115 @@
-<div class="container">
-	<div class="row container">
-		<div class="row">
-			<div class="btn-group new-board-buttons" role="group">
-				<button type="button" class="btn btn-success" ng-click="main.postBoard()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Save</button>
-				<button type="button" class="btn btn-danger" ng-click="main.postBoard()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Save</button>
-			</div>        
-	    </div>
-		<div class="container-fluid">
-			<div class="row">
-				<form class="form-inline" role="form">
-					<label for="description">Description: </label>
-					<input type="text" class="form-control" id="description" placeholder="Board description" ng-model="main.boardInfo.description">	
-				</form>	
+<div class="page">
+	<div class="container">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-sm-10">
+						<h3>
+							<div ng-if="mode=='edit'">
+								<span>Update a board</span>
+							</div>
+							<div ng-if="mode=='add'">
+								<span>Create a new board</span>	
+							</div>
+							
+						</h3>
+					</div>
+					<div class="col-sm-2">
+						<div class="row">
+							<a ng-click="newBoardCtrl.postBoard()" class="btn btn-success btn-lg">Save</a>
+						</div>
+					</div>
+				</div>
 			</div>
-		  	<div class="row">
-		  		<div class="container">
-		  			<form class="form-inline">
-		  				<label for="locationInput">Location: </label>		  	
-						<input type="text" ng-model="asyncSelected" uib-typeahead="loc for loc in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" typeahead-on-select="main.addLocationIfNotPresent(asyncSelected); asyncSelected = '';" class="form-control">
-					    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-					    <div ng-show="noResults">
-					      <i class="glyphicon glyphicon-remove"></i> No Results Found
-					    </div>					   
-				    </form>
-			    </div>
-		  	</div>
+			<div class="panel-body">
+				<div class="container">
+					<div class="row newboard-row">
+						<div class="col-lg-3">
+							<label for="description">Description</label>
+						</div>
+						<div class="col-lg-9">
+							<input type="text" id="description"
+								placeholder="Enter a brief description about this board"
+								ng-model="newBoardCtrl.description" ng-required="true" ng-readonly="mode=='edit'"/>
+						</div>
+					</div>
+					<div class="row newboard-row">
+						<div class="col-sm-3">
+							<label for="location">Location</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" ng-model="asyncSelected" id="location"
+								uib-typeahead="loc for loc in getLocation($viewValue)"
+								typeahead-loading="loadingLocations"
+								typeahead-no-results="noResults"
+								typeahead-on-select="newBoardCtrl.addLocationIfNotPresent(asyncSelected); asyncSelected = '';"
+								> <i ng-show="loadingLocations"
+								class="glyphicon glyphicon-refresh"></i>
+							<div ng-show="noResults">
+								<i class="glyphicon glyphicon-remove"></i> No Results Found
+							</div>
+						</div>
+					</div>
+					<div class="row newboard-row" ng-repeat="l in locations">
+						<span class="glyphicon glyphicon-ok"
+							title="Location added correctly">{{l}}</span> <span
+							class="glyphicon glyphicon-trash pull-right"
+							title="Delete this location from board"
+							ng-click="newBoardCtrl.deleteLocationLocally(l)"
+							aria-hidden="true"></span>
+					</div>
+				</div>	
+			</div>
 		</div>
-	    <div class="row">
-	    	<table class="table">	    		
-	    		<tr ng-repeat="l in locations">    		
-	    			<td>
-	    				<span class="glyphicon glyphicon-map-marker">{{l}}</span>
-	    				<span class="glyphicon glyphicon-trash pull-right" title="Delete this location from board" aria-hidden="true"/>
-	    			</td>
-	    		</tr>
-	    	</table>
-	    </div>
-	</div>    
+	</div>
+	<!--<div class="container">
+		<div class="row container">
+			<div class="row">
+				<div class="btn-group new-board-buttons" role="group">
+					<button type="button" class="btn btn-success"
+						ng-click="newBoardCtrl.postBoard()">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Save
+					</button>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<form class="form-inline" role="form">
+						<label for="description">Description: </label> <input type="text"
+							class="form-control" id="description"
+							placeholder="Board description"
+							ng-model="newBoardCtrl.newBoardDescription">
+					</form>
+				</div>
+				<div class="row">
+					<div class="container">
+						<form class="form-inline">
+							<label for="locationInput">Location: </label> <input type="text"
+								ng-model="asyncSelected"
+								uib-typeahead="loc for loc in getLocation($viewValue)"
+								typeahead-loading="loadingLocations"
+								typeahead-no-results="noResults"
+								typeahead-on-select="newBoardCtrl.addLocationIfNotPresent(asyncSelected); asyncSelected = '';"
+								class="form-control"> <i ng-show="loadingLocations"
+								class="glyphicon glyphicon-refresh"></i>
+							<div ng-show="noResults">
+								<i class="glyphicon glyphicon-remove"></i> No Results Found
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<table class="table">
+					<tr ng-repeat="l in locations">
+						<td><span class="glyphicon glyphicon-map-marker">{{l}}</span>
+							<span class="glyphicon glyphicon-trash pull-right"
+							title="Delete this location from board"
+							ng-click="newBoardCtrl.deleteLocationLocally(l)"
+							aria-hidden="true" /></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div> -->
 </div>

@@ -198,30 +198,6 @@
 
     main.init($route.current.$$route.resource);
 
-    var contains = function(needle) {
-        var findNaN = needle !== needle;
-        var indexOf;
-        if(!findNaN && typeof Array.prototype.indexOf === 'function') {
-            indexOf = Array.prototype.indexOf;
-        } else {
-            indexOf = function(needle) {
-                var i = -1, index = -1;
-
-                for(i = 0; i < this.length; i++) {
-                    var item = this[i];
-
-                    if((findNaN && item !== item) || item === needle) {
-                        index = i;
-                        break;
-                    }
-                }
-
-                return index;
-            };
-        }
-        return indexOf.call(this, needle) > -1;
-    };
-    
     main.setBoardInfo = function(boardInfo) {
 		WeatherService.setBoardInfo(boardInfo);
 	}
@@ -248,10 +224,42 @@ weatherApp.controller('WeatherController', ['$scope','$location','WeatherService
                     console.log('Error getting the boards');
                 }
             );
-    } 
+    }
+
+    main.deleteBoard = function (id){
+        WeatherService.deleteBoard(id)
+            .then(
+                function(result) {          
+                    if(result.data.result === 0) {
+                        for (var i = 0; i < $scope.boards.length; i++) {
+                            if($scope.boards[i].id==id)
+                            {
+                                $scope.boards.splice(i, 1);
+                            }
+                        }
+                    }
+                    console.log('get Boards ok');
+                }, 
+                function(error) {
+                    console.log('Error getting the boards');
+                }
+            );
+
+    }
 
     main.init = function() {
         main.getBoards();
+    }
+
+    main.addNewBoard = function() {
+        WeatherService.setMode('add'); 
+        var boardDto = {
+            id: '',
+            description: '',
+            locations : []
+        };
+        WeatherService.setBoardDto(boardDto);            
+        $location.path("/boards/new");
     }
 
     $scope.checkBoardDetail = function(board){
