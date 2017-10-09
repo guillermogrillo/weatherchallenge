@@ -4,6 +4,7 @@ html {
     font-family: "Lato";
 }
 
+/*
 .page        {
     bottom:0; 
     padding-top:80px;
@@ -87,7 +88,6 @@ html {
     background-color: rgba(89, 165, 165, 0.4);    
 }
 
-
 .page span .tempNow {
     font-size: 1em; 
     color: rgb(63, 127, 191); 
@@ -105,7 +105,7 @@ html {
 #weather-header {
     padding-right: 30px;
 }
-
+*/
 span .glyphicon {
     pointer-events: all;
 }
@@ -127,7 +127,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
-
+/*
 .form {
   position: relative;
   z-index: 1;
@@ -156,7 +156,7 @@ body {
     width: 100%;
 }
 
-
+*/
 /*.forecast-row {    
     float: left;
     width: 20%;
@@ -166,7 +166,7 @@ body {
     border-radius: 4px;
     background-color: rgba(89, 165, 165, 0.4);    
 }*/
-
+/*
 .forecast {
     background-color: rgba(89, 165, 165);    
     border-radius: 4px;
@@ -177,15 +177,126 @@ body {
     margin: 2%;
 }
 
+
+
+*/
+
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.03); }
 
-.row-centered {
+.boards-row {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   margin: 20px 0;
+}
+
+.boards-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;   
+}
+
+.board-header-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 20px;   
+}
+
+.board-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 20px 20px;   
+}
+
+.board-header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 20px;   
+}
+
+.location-header-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 20px; 
+}
+
+.location-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 20px 20px;  
+}
+
+.location-header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 20px 0;   
+}
+
+
+
+.board-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;   
+}
+
+.board-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;      
+}
+
+.board-header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;   
+}
+
+.boards-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;   
+}
+
+
+
+
+.forecast-row-centered {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.forecast-cols {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: 20px 0;  
 }      
 
 .upper-forecast {
@@ -195,7 +306,47 @@ body {
     justify-content: space-around;
 }
 
+.upper-forecast-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upper-forecast-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .lower-forecast {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.lower-forecast-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.lower-forecast-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.forecast {
+    background-color: rgba(89, 165, 165);    
+    border-radius: 4px;
+}
+
+.forecasts-container {
     display: flex;
     flex-direction: row;
     align-items: center;
