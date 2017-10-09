@@ -5,6 +5,7 @@ weatherApp.controller('WeatherController', ['$scope','$location','$interval','We
     $scope.boards = [];
     $scope.selectedBoard = {};
     $scope.location = {};
+    $scope.username = localStorage.getItem('username');
 
     var weatherLogoMap = {
         0 : "wi wi-tornado",

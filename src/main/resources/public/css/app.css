@@ -4,7 +4,11 @@ html {
     font-family: "Lato";
 }
 
-/*
+.main-container {
+    padding-top: 2%;
+}
+
+
 .page        {
     bottom:0; 
     padding-top:80px;
@@ -28,6 +32,7 @@ html {
     padding-top: 15px;
     cursor: default;
 }
+
 
 .boards-row {
     border: 1px;
@@ -88,24 +93,6 @@ html {
     background-color: rgba(89, 165, 165, 0.4);    
 }
 
-.page span .tempNow {
-    font-size: 1em; 
-    color: rgb(63, 127, 191); 
-}
-.page span .tempMin {
-    font-size: 1em; 
-    color: rgb(63, 127, 191); 
-}
-
-.page span .tempMax {
-    font-size: 1em; 
-    color: rgb(240, 14, 123);
-}
-
-#weather-header {
-    padding-right: 30px;
-}
-*/
 span .glyphicon {
     pointer-events: all;
 }
@@ -127,7 +114,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
-/*
+
 .form {
   position: relative;
   z-index: 1;
@@ -139,6 +126,7 @@ body {
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(242, 239, 238, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
 
 .newboard-row {
     border: 1px;
@@ -156,8 +144,7 @@ body {
     width: 100%;
 }
 
-*/
-/*.forecast-row {    
+.forecast-row {    
     float: left;
     width: 20%;
     margin: 1%;
@@ -165,21 +152,8 @@ body {
     text-align: center;
     border-radius: 4px;
     background-color: rgba(89, 165, 165, 0.4);    
-}*/
-/*
-.forecast {
-    background-color: rgba(89, 165, 165);    
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 2%;
 }
 
-
-
-*/
 
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.03); }
@@ -301,9 +275,10 @@ body {
 
 .upper-forecast {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    padding: 5%
 }
 
 .upper-forecast-left {
@@ -342,8 +317,12 @@ body {
 }
 
 .forecast {
-    background-color: rgba(89, 165, 165);    
+    background-color: rgba(121, 178, 235, 0.86);    
     border-radius: 4px;
+}
+
+.forecast:hover{
+    background-color: rgba(121, 178, 235);
 }
 
 .forecasts-container {
@@ -351,4 +330,20 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+}
+
+.tempNow {
+    color: rgb(63, 127, 191); 
+}
+.tempMin {
+    color: rgb(63, 127, 191); 
+}
+
+.tempMax {
+    color: rgb(240, 14, 123);
+}
+
+.username-tag {
+    margin-left: 5px;
+    margin-right: 5px;
 }

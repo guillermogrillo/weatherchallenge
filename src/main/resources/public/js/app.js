@@ -9,15 +9,7 @@ weatherApp.config(function($routeProvider) {
         .when('/boards/new', {
             templateUrl: 'views/newboard.html',
             controller: 'NewBoardController as newBoardCtrl'
-        })
-        .when('/board', {
-            templateUrl: 'views/board.html',
-            controller: 'BoardController as boardCtrl'
-        })
-        .when('/location', {
-            templateUrl: 'views/location.html',
-            controller: 'LocationsController as locationCtrl'
-        })
+        })    
         .when('/', {
         	templateUrl: 'views/landing.html',
         	controller: 'LandingController as landing'

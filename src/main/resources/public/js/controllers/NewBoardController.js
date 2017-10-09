@@ -89,9 +89,22 @@ weatherApp.controller('NewBoardController', ['$scope', '$location','WeatherServi
     };
     
     newBoardCtrl.deleteLocationLocally = function(locationToRemove) {
-        var removeIndex = $scope.locations.map(function(item) { return item.woeid; })
-                       .indexOf(locationToRemove.woeid);
-        ~removeIndex && $scope.locations.splice(removeIndex, 1);
+        for (var i = 0; i < $scope.locations.length; i++) {
+            if(newBoardCtrl.getWoeid($scope.locations[i])== newBoardCtrl.getWoeid(locationToRemove))
+            {
+                $scope.locations.splice(i, 1);
+            }
+        }
+    }
+
+    newBoardCtrl.getWoeid = function(location) {
+        var regExp = /\(([^)]+)\)/;
+        var matches = regExp.exec(location);            
+        if (matches) {
+            var submatch = matches[1];            
+            return submatch;
+        }
+        return null;
     }
 
     newBoardCtrl.init = function() {

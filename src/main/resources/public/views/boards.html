@@ -1,7 +1,16 @@
-<div class="container">
+<nav class="navbar navbar-default">
+  	<div class="container-fluid">
+  		<div class="pull-right">
+  			<span class="glyphicon glyphicon-user"></span>
+  			<span id="username-tag">{{username}}</span>
+		  	<a href="/#/" class="btn btn-success btn-md grow">Logout</a>
+		</div>
+  	</div>
+</nav>
+<div class="container main-container">
 	<div class="boards-header">
 		<h2>
-			<span>Your boards({{boards.length}})</span>
+			<span><strong>Your boards</strong>({{boards.length}})</span>
 		</h2>
 		<a class="fa fa-plus fa-3x" title="Add new board"
 			ng-click="main.addNewBoard()"></a>
@@ -14,7 +23,7 @@
                         <h4 class="panel-title">          
 							<div class="board-header-row">
 								<div class="board-header-row-left">
-									<span><strong>{{b.description}}</strong></span>
+									<h4><strong>{{b.description}}</strong></h4>
 								</div>
 								<div class="board-header-row-right">
 									<a class="fa fa-plus fa-2x" title="Add location" 
@@ -35,7 +44,12 @@
                                     <div class="panel-title">
 										<div class="location-header-row">								
 											<div class="location-header-row-left">
-												<i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><span><strong>{{l.city}}</strong>,{{l.country}}</span>
+												<div class="location-header-row-left-north">
+													<i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><span><strong>{{l.city}}</strong>,{{l.country}}</span>
+												</div>
+												<div class="location-header-row-left-south">
+													<span>(last update: {{l.weather.lastUpdateDateTime}})</span>
+												</div>
 											</div>
 											<div class="location-header-row-right">
 												<a class="fa fa-minus fa-2x" title="Remove this location"
@@ -63,14 +77,14 @@
 													</div>
 												</div>
 												<div class="lower-forecast">
-													<div class="lower-forecast-left" ng-if="$index==0">
-														<h2>
+													<div class="lower-forecast-left tempNow" ng-if="$index==0">
+														<h2 class="">
 															<i class="wi wi-thermometer"></i>
 														</h2>
 														<span>{{l.weather.temperature}}</span>
 													</div>
 													<div class="lower-forecast-right">
-														<span>MIN {{f.low}}</span> <span>MAX {{f.high}}</span>
+														<span class="tempMin">MIN {{f.low}}</span> <span class="tempMax">MAX {{f.high}}</span>
 													</div>
 												</div>
 											</div>
