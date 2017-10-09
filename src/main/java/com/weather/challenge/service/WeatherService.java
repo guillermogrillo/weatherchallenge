@@ -106,6 +106,7 @@ public class WeatherService {
 			Optional<Location> oldLocation = locationRepository.findByWoeid(woeid);
 			if (oldLocation.isPresent()) {
 				oldLocation.get().getBoards().add(savedBoard);
+				locationRepository.save(oldLocation.get());
 			} else {
 				yahooService.findLocationAndWeatherByWoeid(savedBoard, woeid);
 			}

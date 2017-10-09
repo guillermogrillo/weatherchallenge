@@ -127,16 +127,16 @@ weatherApp.controller('WeatherController', ['$scope','$location','$interval','We
         WeatherService.setSelectedLocation(location);
     }
     
-    main.deleteLocationFromBoard = function(boardId, woeid) {
+    main.deleteLocationFromBoard = function(board, woeid) {
         
-        WeatherService.deleteLocationFromBoard(boardId, woeid)
+        WeatherService.deleteLocationFromBoard(board.id, woeid)
         .then(
             function(result) {                              
                 console.log('Delete location ok');
-                for (var i = 0; i < $scope.board.locations.length; i++) {
-                    if($scope.board.locations[i].woeid==woeid)
+                for (var i = 0; i < board.locations.length; i++) {
+                    if(board.locations[i].woeid==woeid)
                     {
-                        $scope.board.locations.splice(i, 1);
+                        board.locations.splice(i, 1);
                     }
                 }
             }, 

@@ -17,9 +17,12 @@
 									<span><strong>{{b.description}}</strong></span>
 								</div>
 								<div class="board-header-row-right">
+									<a class="fa fa-plus fa-2x" title="Add location" 
+										ng-click="main.editBoard(b)"></a>
 									<a class="fa fa-minus fa-2x" title="Delete this board"
-										ng-click="main.deleteBoard(b.id)"></a> <a
-										ng-click="checkBoardDetail(b)" class="fa fa-bars fa-2x" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"
+										ng-click="main.deleteBoard(b.id)"></a> 
+									<a ng-click="checkBoardDetail(b)" class="fa fa-bars fa-2x" 
+										data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}"
 										title="See details"></a>
 								</div>
 							</div>
@@ -36,7 +39,7 @@
 											</div>
 											<div class="location-header-row-right">
 												<a class="fa fa-minus fa-2x" title="Remove this location"
-													ng-click="boardCtrl.deleteLocationFromBoard(board.id,l.woeid)"></a>
+													ng-click="main.deleteLocationFromBoard(b,l.woeid)"></a>
 												<a ng-click="checkLocationForecast(l)" class="fa fa-bars fa-2x" data-toggle="collapse" data-parent="#accordion" href="boards/#{{b.id}}-{{$index}}"
 													title="See weather details"></a>
 											</div>
@@ -69,7 +72,6 @@
 													<div class="lower-forecast-right">
 														<span>MIN {{f.low}}</span> <span>MAX {{f.high}}</span>
 													</div>
-
 												</div>
 											</div>
 										</div>
